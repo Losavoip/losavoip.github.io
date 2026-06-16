@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LosaTermVoip — User Manual / Manuale</title>
+<style>
+  :root { --bg:#0d1117; --fg:#e6edf3; --acc:#58a6ff; --acc2:#3fb950; --warn:#d29922; --err:#f85149; --card:#161b22; --border:#30363d; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--fg); font-family:'Segoe UI',Arial,sans-serif; font-size:15px; line-height:1.7; }
+  a { color:var(--acc); }
+  header { background:#010409; border-bottom:2px solid var(--acc); padding:28px 48px; }
+  header h1 { font-size:2.1em; color:var(--acc); letter-spacing:1px; }
+  header .sub { color:#8b949e; font-size:1.02em; margin-top:6px; }
+  .langbar { background:var(--card); border-bottom:1px solid var(--border); padding:10px 48px; position:sticky; top:0; z-index:200; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .langbar span { color:#8b949e; font-size:0.85em; margin-right:8px; }
+  .langbtn { cursor:pointer; background:#21262d; color:#8b949e; border:1px solid var(--border); border-radius:6px; padding:5px 12px; font-size:0.9em; font-weight:600; }
+  .langbtn:hover { color:var(--fg); }
+  .langbtn.active { background:var(--acc); color:#021527; border-color:var(--acc); }
+  main { max-width:980px; margin:0 auto; padding:28px 24px; }
+  section { margin-bottom:44px; }
+  h2 { color:var(--acc); font-size:1.45em; border-bottom:1px solid var(--border); padding-bottom:8px; margin-bottom:16px; }
+  h3 { color:var(--acc2); font-size:1.1em; margin:18px 0 8px; }
+  h4 { color:var(--warn); font-size:1em; margin:14px 0 6px; }
+  p { margin-bottom:10px; }
+  ul,ol { margin:8px 0 12px 24px; }
+  li { margin-bottom:4px; }
+  code { background:#21262d; border:1px solid var(--border); border-radius:4px; padding:2px 6px; font-family:Consolas,monospace; font-size:0.9em; color:#e6edf3; }
+  pre { background:#161b22; border:1px solid var(--border); border-radius:8px; padding:16px; overflow-x:auto; margin:12px 0; }
+  pre code { background:none; border:none; padding:0; }
+  .badge { display:inline-block; padding:2px 10px; border-radius:12px; font-size:0.8em; font-weight:600; }
+  .req { background:#1f3350; color:var(--acc); border:1px solid var(--acc); }
+  .opt { background:#1f3a1f; color:var(--acc2); border:1px solid var(--acc2); }
+  table { width:100%; border-collapse:collapse; margin:12px 0; }
+  th { background:#21262d; color:var(--acc); text-align:left; padding:10px 12px; border:1px solid var(--border); }
+  td { padding:8px 12px; border:1px solid var(--border); vertical-align:top; }
+  tr:nth-child(even) { background:#0d1117; }
+  .tip { background:#1f2d3d; border-left:4px solid var(--acc); padding:12px 16px; border-radius:0 6px 6px 0; margin:12px 0; }
+  .warn-box { background:#2d2200; border-left:4px solid var(--warn); padding:12px 16px; border-radius:0 6px 6px 0; margin:12px 0; }
+  .proto-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:12px; margin:12px 0; }
+  .proto-card { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:14px; }
+  .proto-card .icon { font-size:1.7em; margin-bottom:6px; }
+  .proto-card h4 { color:var(--acc); margin:0 0 4px; font-size:1em; }
+  .proto-card p { font-size:0.85em; color:#8b949e; margin:0; }
+  footer { background:#010409; border-top:1px solid var(--border); padding:20px 48px; color:#8b949e; text-align:center; font-size:0.9em; }
+  /* language toggling */
+  .lang { display:none; }
+  body.lang-it .lang.it, body.lang-en .lang.en, body.lang-fr .lang.fr, body.lang-de .lang.de, body.lang-es .lang.es { display:block; }
+</style>
+</head>
+<body class="lang-it">
+
+<header>
+  <h1>🔷 LosaTermVoip</h1>
+  <div class="sub">Terminal Manager for VoIP Engineers — SSH · SFTP · SCP · FTP · PCAP Analyzer · SIP Ladder · Syslog · H.323 · MEGACO · Skinny · SIP-I</div>
+</header>
+
+<div class="langbar">
+  <span>🌐 Language / Lingua:</span>
+  <button class="langbtn active" data-l="it" onclick="setLang('it')">🇮🇹 Italiano</button>
+  <button class="langbtn" data-l="en" onclick="setLang('en')">🇬🇧 English</button>
+  <button class="langbtn" data-l="fr" onclick="setLang('fr')">🇫🇷 Français</button>
+  <button class="langbtn" data-l="de" onclick="setLang('de')">🇩🇪 Deutsch</button>
+  <button class="langbtn" data-l="es" onclick="setLang('es')">🇪🇸 Español</button>
+</div>
+
+<main>
+
+<!-- ══════════════════ ITALIANO ══════════════════ -->
+<div class="lang it">
+<section>
+<h2>📋 Requisiti</h2>
+<p>LosaTermVoip è un <code>.exe</code> portabile (nessuna installazione). Software esterni:</p>
+<table>
+<tr><th>Software</th><th>Uso</th><th>Necessario</th></tr>
+<tr><td><a href="https://www.putty.org" target="_blank">PuTTY</a> (putty.exe, pscp.exe, psftp.exe)</td><td>Terminale SSH embedded, SCP, SFTP</td><td><span class="badge req">per SSH/SCP/SFTP</span></td></tr>
+<tr><td><a href="https://www.wireshark.org/download.html" target="_blank">Wireshark</a> (con tshark)</td><td>Analisi PCAP — Ladder SIP/H.323/MEGACO/Skinny</td><td><span class="badge req">per PCAP</span></td></tr>
+<tr><td>TranslatorX</td><td>Apertura trace SDL Cisco CUCM</td><td><span class="badge opt">opzionale</span></td></tr>
+<tr><td>.NET Framework 4.8</td><td>Runtime (già presente su Win10/11)</td><td><span class="badge req">richiesto</span></td></tr>
+<tr><td>Chrome / Edge</td><td>Claude AI in-app, apertura URL</td><td><span class="badge opt">opzionale</span></td></tr>
+</table>
+<p>Dati salvati in <code>%APPDATA%\LosaTermVoip\</code>. Le password sono cifrate con Windows DPAPI (valide solo sullo stesso PC/utente).</p>
+</section>
+
+<section>
+<h2>⚙️ Installazione</h2>
+<ol>
+<li>Installa <strong>PuTTY</strong> e <strong>Wireshark</strong> (spunta <strong>TShark</strong> durante il setup).</li>
+<li>Copia <code>LosaTermVoip.exe</code> dove vuoi e avvialo: nessuna installazione.</li>
+<li>Le connessioni del vecchio NetTerm vengono importate automaticamente al primo avvio.</li>
+</ol>
+</section>
+
+<section>
+<h2>🔌 Connessioni</h2>
+<p><strong>+ Nuova</strong> per crearne una. Campi: Nome, Host/IP, Porta, Protocollo (SSH·SFTP·SCP·FTP·HTTP·HTTPS), Utente, Password, Tipo VPN (nota informativa), Browser e Path (per HTTP/HTTPS).</p>
+<ul>
+<li><strong>Doppio-click</strong> = connetti subito (SSH embedded).</li>
+<li><strong>Tasto destro</strong> = menu (SSH finestra, SFTP, SCP, FTP, Modifica, Elimina).</li>
+</ul>
+</section>
+
+<section>
+<h2>🖥️ SSH</h2>
+<p>PuTTY viene <strong>incorporato</strong> nella tab. Con sessione attiva appaiono in toolbar: <strong>📊 Analizzatore</strong> (mostra/nasconde il pannello sotto il terminale), <strong>📄 Log</strong>, <strong>✕ Chiudi</strong>. Ogni sessione salva un log in <code>%APPDATA%\LosaTermVoip\logs\</code> analizzato in tempo reale.</p>
+</section>
+
+<section>
+<h2>📁 FTP / SFTP / SCP</h2>
+<p><strong>FTP</strong> apre un browser file grafico (naviga, upload, download). <strong>SCP</strong> apre una finestra di trasferimento con opzione <strong>ricorsivo (-r)</strong> per le cartelle.</p>
+<div class="warn-box">⚠ Su Cisco IOS l'errore <code>unexpected end-of-file</code> significa che il device non ha SCP/SFTP server attivo: serve <code>ip scp server enable</code> e un path tipo <code>flash:</code> (non <code>~/</code>), con utente a privilegio 15.</div>
+</section>
+
+<section>
+<h2>🖧 Server (FTP / SFTP)</h2>
+<p>Il pulsante <strong>🖧 Server</strong> trasforma il PC in <strong>server FTP</strong> (TcpListener puro, modalità PASV) o configura il <strong>server SFTP</strong> via OpenSSH di Windows. Utile per ricevere file da gateway/SBC.</p>
+</section>
+
+<section>
+<h2>🔍 Analizzatore &amp; 📦 PCAP / Ladder</h2>
+<p>L'analizzatore esamina i log SSH e i PCAP, evidenziando eventi con severità colorata (Critical/Error/Warning/Info). Regole per <strong>CUBE</strong> (IOS Voice Gateway) e <strong>CUCM</strong>.</p>
+<h3>Ladder Diagram</h3>
+<ul>
+<li>Apri un PCAP col pulsante <strong>📦 PCAP</strong> oppure <strong>trascinandolo</strong> nella finestra.</li>
+<li>Diagramma a scala con endpoint (IP:porta) e frecce dei messaggi col timestamp.</li>
+<li><strong>Filtra per chiamata</strong>: il menu a tendina mostra ogni call come <em>chiamante → chiamato [ora] N msg</em>; selezionala per isolare solo quei messaggi.</li>
+<li>Doppio-click o <strong>🔍 Segui call</strong> per evidenziare l'intera conversazione.</li>
+<li>SIP, H.323, MEGACO e Skinny sono unificati e ordinati per timestamp.</li>
+</ul>
+</section>
+
+<section>
+<h2>📡 Protocolli</h2>
+<div class="proto-grid">
+<div class="proto-card"><div class="icon">📞</div><h4>SIP / SIP-I</h4><p>INVITE, BYE, REGISTER, OPTIONS, risposte 1xx-6xx, SDP/codec, ISUP incapsulato.</p></div>
+<div class="proto-card"><div class="icon">🔷</div><h4>H.323</h4><p>H.225 (Setup, Connect, ReleaseComplete), H.245, RAS.</p></div>
+<div class="proto-card"><div class="icon">🎛️</div><h4>MEGACO / H.248</h4><p>ServiceChange, Add/Subtract/Modify, Notify.</p></div>
+<div class="proto-card"><div class="icon">☎️</div><h4>Skinny / SCCP</h4><p>Register, CallState, OpenReceiveChannel, StartMediaTransmission.</p></div>
+</div>
+</section>
+
+<section>
+<h2>📖 Doc.</h2>
+<p>Raccolta di link alla documentazione, <strong>modificabile a mano</strong>: Aggiungi / Modifica / Rimuovi / Apri, con filtro per categoria. Preset inclusi (CUCM SRND, CUBE, AudioCodes). Doppio-click apre nel browser. Salvato in <code>doclinks.json</code>.</p>
+</section>
+
+<section>
+<h2>📡 Syslog Server</h2>
+<p>Il pulsante <strong>📡 Syslog</strong> apre un <strong>server syslog UDP</strong> in stile AudioCodes/Cisco.</p>
+<ul>
+<li>Scegli la porta (default 514) e premi <strong>Avvia</strong>. Configura il device per inviare i syslog all'IP del PC.</li>
+<li>Severità colorate, evidenziazione dei messaggi SIP, filtro testo, "Solo SIP/Call", scrittura su file ed export.</li>
+<li><strong>Ferma</strong> rilascia la porta. Se 514 risulta occupata da una sessione chiusa male, usa 1514 o riavvia il PC.</li>
+</ul>
+</section>
+
+<section>
+<h2>🖱️ Drag &amp; Drop</h2>
+<p>Trascina un file nella finestra e scegli l'azione:</p>
+<ul>
+<li><strong>.pcap / .cap</strong> → Analizza qui (Ladder) oppure viewer Syslog.</li>
+<li><strong>log / trace</strong> → <strong>Apri in TranslatorX</strong> (trace SDL Cisco CUCM) oppure viewer Syslog (AudioCodes).</li>
+</ul>
+</section>
+
+<section>
+<h2>🔀 Simulator &amp; 🤖 Claude AI</h2>
+<p><strong>🔀 Simulator</strong>: invia messaggi SIP di test, traduce i cause code Q.850↔SIP↔H.323, analizza l'SDP. <strong>🤖 Claude AI</strong>: apre claude.ai in una tab incorporata per analizzare log e chiedere aiuto sulle config.</p>
+</section>
+
+<section>
+<h2>🌐 Lingua &amp; layout</h2>
+<p>Menu <strong>🌐 Lingua</strong>: IT, EN, FR, DE, ES (riavviare l'app dopo il cambio). Il <strong>layout</strong> (dimensioni/posizione finestra e splitter) viene salvato e ripristinato al riavvio.</p>
+</section>
+
+<section>
+<h2>🔧 Troubleshooting</h2>
+<h3>SSH non parte</h3><p>Metti <code>putty.exe</code> accanto all'exe o in <code>C:\Program Files\PuTTY\</code>.</p>
+<h3>PCAP non funziona</h3><p>Installa Wireshark con <strong>TShark</strong>; riavvia l'app.</p>
+<h3>Ladder "Nessun messaggio SIP"</h3><p>SIP su porta non standard: in Wireshark usa <em>Decode As</em> per assegnare la porta a SIP.</p>
+<h3>Syslog: porta 514 occupata</h3><p>Una sessione chiusa male lascia un socket orfano: chiudi con <strong>Ferma</strong>, usa la 1514 o riavvia il PC.</p>
+<h3>TranslatorX "No known messages"</h3><p>TranslatorX apre solo <strong>trace SDL Cisco</strong>, non pcap né syslog AudioCodes.</p>
+<h3>Connessioni/password</h3><p>Salvate in <code>%APPDATA%\LosaTermVoip\connections.json</code>, cifrate con DPAPI: valgono solo sullo stesso PC/utente.</p>
+</section>
+</div>
+
+<!-- ══════════════════ ENGLISH ══════════════════ -->
+<div class="lang en">
+<section>
+<h2>📋 Requirements</h2>
+<p>LosaTermVoip is a portable <code>.exe</code> (no installation). External software:</p>
+<table>
+<tr><th>Software</th><th>Use</th><th>Needed</th></tr>
+<tr><td><a href="https://www.putty.org" target="_blank">PuTTY</a> (putty.exe, pscp.exe, psftp.exe)</td><td>Embedded SSH terminal, SCP, SFTP</td><td><span class="badge req">for SSH/SCP/SFTP</span></td></tr>
+<tr><td><a href="https://www.wireshark.org/download.html" target="_blank">Wireshark</a> (with tshark)</td><td>PCAP analysis — SIP/H.323/MEGACO/Skinny ladder</td><td><span class="badge req">for PCAP</span></td></tr>
+<tr><td>TranslatorX</td><td>Opening Cisco CUCM SDL traces</td><td><span class="badge opt">optional</span></td></tr>
+<tr><td>.NET Framework 4.8</td><td>Runtime (already on Win10/11)</td><td><span class="badge req">required</span></td></tr>
+<tr><td>Chrome / Edge</td><td>In-app Claude AI, opening URLs</td><td><span class="badge opt">optional</span></td></tr>
+</table>
+<p>Data is stored in <code>%APPDATA%\LosaTermVoip\</code>. Passwords are encrypted with Windows DPAPI (valid only on the same PC/user).</p>
+</section>
+
+<section>
+<h2>⚙️ Installation</h2>
+<ol>
+<li>Install <strong>PuTTY</strong> and <strong>Wireshark</strong> (tick <strong>TShark</strong> during setup).</li>
+<li>Copy <code>LosaTermVoip.exe</code> anywhere and run it: no installation.</li>
+<li>Connections from the old NetTerm are imported automatically on first launch.</li>
+</ol>
+</section>
+
+<section>
+<h2>🔌 Connections</h2>
+<p><strong>+ New</strong> to create one. Fields: Name, Host/IP, Port, Protocol (SSH·SFTP·SCP·FTP·HTTP·HTTPS), User, Password, VPN type (informational), Browser and Path (for HTTP/HTTPS).</p>
+<ul>
+<li><strong>Double-click</strong> = connect now (embedded SSH).</li>
+<li><strong>Right-click</strong> = menu (SSH window, SFTP, SCP, FTP, Edit, Delete).</li>
+</ul>
+</section>
+
+<section>
+<h2>🖥️ SSH</h2>
+<p>PuTTY is <strong>embedded</strong> in the tab. With an active session the toolbar shows: <strong>📊 Analyzer</strong> (toggles the panel below the terminal), <strong>📄 Log</strong>, <strong>✕ Close</strong>. Each session writes a log to <code>%APPDATA%\LosaTermVoip\logs\</code> analysed in real time.</p>
+</section>
+
+<section>
+<h2>📁 FTP / SFTP / SCP</h2>
+<p><strong>FTP</strong> opens a graphical file browser (navigate, upload, download). <strong>SCP</strong> opens a transfer window with a <strong>recursive (-r)</strong> option for folders.</p>
+<div class="warn-box">⚠ On Cisco IOS the <code>unexpected end-of-file</code> error means the device has no SCP/SFTP server enabled: you need <code>ip scp server enable</code> and a path like <code>flash:</code> (not <code>~/</code>), with a privilege-15 user.</div>
+</section>
+
+<section>
+<h2>🖧 Server (FTP / SFTP)</h2>
+<p>The <strong>🖧 Server</strong> button turns the PC into an <strong>FTP server</strong> (pure TcpListener, PASV mode) or configures the <strong>SFTP server</strong> via Windows OpenSSH. Handy to receive files from gateways/SBCs.</p>
+</section>
+
+<section>
+<h2>🔍 Analyzer &amp; 📦 PCAP / Ladder</h2>
+<p>The analyzer inspects SSH logs and PCAPs, highlighting events by colored severity (Critical/Error/Warning/Info). Rules for <strong>CUBE</strong> (IOS Voice Gateway) and <strong>CUCM</strong>.</p>
+<h3>Ladder Diagram</h3>
+<ul>
+<li>Open a PCAP via the <strong>📦 PCAP</strong> button or by <strong>dragging</strong> it onto the window.</li>
+<li>Ladder chart with endpoints (IP:port) and message arrows with timestamps.</li>
+<li><strong>Filter by call</strong>: the drop-down lists each call as <em>caller → callee [time] N msg</em>; pick one to isolate just those messages.</li>
+<li>Double-click or <strong>🔍 Follow call</strong> to highlight the whole conversation.</li>
+<li>SIP, H.323, MEGACO and Skinny are merged and sorted by timestamp.</li>
+</ul>
+</section>
+
+<section>
+<h2>📡 Protocols</h2>
+<div class="proto-grid">
+<div class="proto-card"><div class="icon">📞</div><h4>SIP / SIP-I</h4><p>INVITE, BYE, REGISTER, OPTIONS, 1xx-6xx responses, SDP/codecs, encapsulated ISUP.</p></div>
+<div class="proto-card"><div class="icon">🔷</div><h4>H.323</h4><p>H.225 (Setup, Connect, ReleaseComplete), H.245, RAS.</p></div>
+<div class="proto-card"><div class="icon">🎛️</div><h4>MEGACO / H.248</h4><p>ServiceChange, Add/Subtract/Modify, Notify.</p></div>
+<div class="proto-card"><div class="icon">☎️</div><h4>Skinny / SCCP</h4><p>Register, CallState, OpenReceiveChannel, StartMediaTransmission.</p></div>
+</div>
+</section>
+
+<section>
+<h2>📖 Doc.</h2>
+<p>A collection of documentation links you <strong>edit by hand</strong>: Add / Edit / Remove / Open, with a category filter. Presets included (CUCM SRND, CUBE, AudioCodes). Double-click opens in the browser. Saved in <code>doclinks.json</code>.</p>
+</section>
+
+<section>
+<h2>📡 Syslog Server</h2>
+<p>The <strong>📡 Syslog</strong> button opens a <strong>UDP syslog server</strong> in AudioCodes/Cisco style.</p>
+<ul>
+<li>Choose the port (default 514) and press <strong>Start</strong>. Configure the device to send syslog to the PC's IP.</li>
+<li>Colored severities, SIP message highlighting, text filter, "SIP/Call only", write-to-file and export.</li>
+<li><strong>Stop</strong> releases the port. If 514 is held by a badly-closed session, use 1514 or reboot the PC.</li>
+</ul>
+</section>
+
+<section>
+<h2>🖱️ Drag &amp; Drop</h2>
+<p>Drag a file onto the window and choose the action:</p>
+<ul>
+<li><strong>.pcap / .cap</strong> → Analyze here (Ladder) or Syslog viewer.</li>
+<li><strong>log / trace</strong> → <strong>Open in TranslatorX</strong> (Cisco CUCM SDL trace) or Syslog viewer (AudioCodes).</li>
+</ul>
+</section>
+
+<section>
+<h2>🔀 Simulator &amp; 🤖 Claude AI</h2>
+<p><strong>🔀 Simulator</strong>: sends test SIP messages, translates Q.850↔SIP↔H.323 cause codes, analyses SDP. <strong>🤖 Claude AI</strong>: opens claude.ai in an embedded tab to analyse logs and get help with configs.</p>
+</section>
+
+<section>
+<h2>🌐 Language &amp; layout</h2>
+<p><strong>🌐 Language</strong> menu: IT, EN, FR, DE, ES (restart the app after changing). The <strong>layout</strong> (window size/position and splitter) is saved and restored on restart.</p>
+</section>
+
+<section>
+<h2>🔧 Troubleshooting</h2>
+<h3>SSH won't start</h3><p>Put <code>putty.exe</code> next to the exe or in <code>C:\Program Files\PuTTY\</code>.</p>
+<h3>PCAP doesn't work</h3><p>Install Wireshark with <strong>TShark</strong>; restart the app.</p>
+<h3>Ladder shows "No SIP messages"</h3><p>SIP on a non-standard port: in Wireshark use <em>Decode As</em> to map the port to SIP.</p>
+<h3>Syslog: port 514 busy</h3><p>A badly-closed session leaves an orphan socket: close with <strong>Stop</strong>, use 1514 or reboot the PC.</p>
+<h3>TranslatorX "No known messages"</h3><p>TranslatorX only opens <strong>Cisco SDL traces</strong>, not pcaps or AudioCodes syslog.</p>
+<h3>Connections/passwords</h3><p>Stored in <code>%APPDATA%\LosaTermVoip\connections.json</code>, encrypted with DPAPI: valid only on the same PC/user.</p>
+</section>
+</div>
+
+<!-- ══════════════════ FRANÇAIS ══════════════════ -->
+<div class="lang fr">
+<section>
+<h2>📋 Prérequis</h2>
+<p>LosaTermVoip est un <code>.exe</code> portable (sans installation). Logiciels externes :</p>
+<table>
+<tr><th>Logiciel</th><th>Usage</th><th>Requis</th></tr>
+<tr><td><a href="https://www.putty.org" target="_blank">PuTTY</a> (putty.exe, pscp.exe, psftp.exe)</td><td>Terminal SSH intégré, SCP, SFTP</td><td><span class="badge req">pour SSH/SCP/SFTP</span></td></tr>
+<tr><td><a href="https://www.wireshark.org/download.html" target="_blank">Wireshark</a> (avec tshark)</td><td>Analyse PCAP — ladder SIP/H.323/MEGACO/Skinny</td><td><span class="badge req">pour PCAP</span></td></tr>
+<tr><td>TranslatorX</td><td>Ouverture des traces SDL Cisco CUCM</td><td><span class="badge opt">optionnel</span></td></tr>
+<tr><td>.NET Framework 4.8</td><td>Runtime (déjà sur Win10/11)</td><td><span class="badge req">requis</span></td></tr>
+<tr><td>Chrome / Edge</td><td>Claude AI intégré, ouverture d'URL</td><td><span class="badge opt">optionnel</span></td></tr>
+</table>
+<p>Données dans <code>%APPDATA%\LosaTermVoip\</code>. Les mots de passe sont chiffrés avec Windows DPAPI (valables uniquement sur le même PC/utilisateur).</p>
+</section>
+
+<section>
+<h2>⚙️ Installation</h2>
+<ol>
+<li>Installez <strong>PuTTY</strong> et <strong>Wireshark</strong> (cochez <strong>TShark</strong> lors du setup).</li>
+<li>Copiez <code>LosaTermVoip.exe</code> où vous voulez et lancez-le : sans installation.</li>
+<li>Les connexions de l'ancien NetTerm sont importées automatiquement au premier lancement.</li>
+</ol>
+</section>
+
+<section>
+<h2>🔌 Connexions</h2>
+<p><strong>+ Nouvelle</strong> pour en créer une. Champs : Nom, Hôte/IP, Port, Protocole (SSH·SFTP·SCP·FTP·HTTP·HTTPS), Utilisateur, Mot de passe, Type VPN (informatif), Navigateur et Chemin (pour HTTP/HTTPS).</p>
+<ul>
+<li><strong>Double-clic</strong> = se connecter (SSH intégré).</li>
+<li><strong>Clic droit</strong> = menu (SSH fenêtre, SFTP, SCP, FTP, Modifier, Supprimer).</li>
+</ul>
+</section>
+
+<section>
+<h2>🖥️ SSH</h2>
+<p>PuTTY est <strong>intégré</strong> dans l'onglet. Session active : la barre d'outils affiche <strong>📊 Analyseur</strong> (affiche/masque le panneau sous le terminal), <strong>📄 Journal</strong>, <strong>✕ Fermer</strong>. Chaque session écrit un journal dans <code>%APPDATA%\LosaTermVoip\logs\</code>, analysé en temps réel.</p>
+</section>
+
+<section>
+<h2>📁 FTP / SFTP / SCP</h2>
+<p><strong>FTP</strong> ouvre un explorateur de fichiers graphique (naviguer, envoyer, télécharger). <strong>SCP</strong> ouvre une fenêtre de transfert avec option <strong>récursif (-r)</strong> pour les dossiers.</p>
+<div class="warn-box">⚠ Sur Cisco IOS, l'erreur <code>unexpected end-of-file</code> signifie que le serveur SCP/SFTP n'est pas activé : il faut <code>ip scp server enable</code> et un chemin type <code>flash:</code> (pas <code>~/</code>), avec un utilisateur de privilège 15.</div>
+</section>
+
+<section>
+<h2>🖧 Serveur (FTP / SFTP)</h2>
+<p>Le bouton <strong>🖧 Server</strong> transforme le PC en <strong>serveur FTP</strong> (TcpListener pur, mode PASV) ou configure le <strong>serveur SFTP</strong> via OpenSSH de Windows. Pratique pour recevoir des fichiers depuis des gateways/SBC.</p>
+</section>
+
+<section>
+<h2>🔍 Analyseur &amp; 📦 PCAP / Ladder</h2>
+<p>L'analyseur examine les journaux SSH et les PCAP, surlignant les événements par gravité colorée (Critical/Error/Warning/Info). Règles pour <strong>CUBE</strong> (IOS Voice Gateway) et <strong>CUCM</strong>.</p>
+<h3>Diagramme Ladder</h3>
+<ul>
+<li>Ouvrez un PCAP avec le bouton <strong>📦 PCAP</strong> ou en le <strong>glissant</strong> sur la fenêtre.</li>
+<li>Diagramme avec points d'extrémité (IP:port) et flèches des messages horodatées.</li>
+<li><strong>Filtrer par appel</strong> : la liste affiche chaque appel comme <em>appelant → appelé [heure] N msg</em> ; choisissez-en un pour isoler ces messages.</li>
+<li>Double-clic ou <strong>🔍 Suivre l'appel</strong> pour surligner toute la conversation.</li>
+<li>SIP, H.323, MEGACO et Skinny sont fusionnés et triés par horodatage.</li>
+</ul>
+</section>
+
+<section>
+<h2>📡 Protocoles</h2>
+<div class="proto-grid">
+<div class="proto-card"><div class="icon">📞</div><h4>SIP / SIP-I</h4><p>INVITE, BYE, REGISTER, OPTIONS, réponses 1xx-6xx, SDP/codecs, ISUP encapsulé.</p></div>
+<div class="proto-card"><div class="icon">🔷</div><h4>H.323</h4><p>H.225 (Setup, Connect, ReleaseComplete), H.245, RAS.</p></div>
+<div class="proto-card"><div class="icon">🎛️</div><h4>MEGACO / H.248</h4><p>ServiceChange, Add/Subtract/Modify, Notify.</p></div>
+<div class="proto-card"><div class="icon">☎️</div><h4>Skinny / SCCP</h4><p>Register, CallState, OpenReceiveChannel, StartMediaTransmission.</p></div>
+</div>
+</section>
+
+<section>
+<h2>📖 Doc.</h2>
+<p>Une collection de liens vers la documentation, <strong>modifiable à la main</strong> : Ajouter / Modifier / Supprimer / Ouvrir, avec filtre par catégorie. Préréglages inclus (CUCM SRND, CUBE, AudioCodes). Double-clic ouvre dans le navigateur. Enregistré dans <code>doclinks.json</code>.</p>
+</section>
+
+<section>
+<h2>📡 Serveur Syslog</h2>
+<p>Le bouton <strong>📡 Syslog</strong> ouvre un <strong>serveur syslog UDP</strong> façon AudioCodes/Cisco.</p>
+<ul>
+<li>Choisissez le port (défaut 514) et <strong>Démarrer</strong>. Configurez le device pour envoyer les syslog vers l'IP du PC.</li>
+<li>Gravités colorées, surlignage SIP, filtre texte, « SIP/Call uniquement », écriture fichier et export.</li>
+<li><strong>Arrêter</strong> libère le port. Si 514 est occupé par une session mal fermée, utilisez 1514 ou redémarrez le PC.</li>
+</ul>
+</section>
+
+<section>
+<h2>🖱️ Glisser-déposer</h2>
+<p>Glissez un fichier sur la fenêtre et choisissez l'action :</p>
+<ul>
+<li><strong>.pcap / .cap</strong> → Analyser ici (Ladder) ou visionneuse Syslog.</li>
+<li><strong>log / trace</strong> → <strong>Ouvrir dans TranslatorX</strong> (trace SDL Cisco CUCM) ou visionneuse Syslog (AudioCodes).</li>
+</ul>
+</section>
+
+<section>
+<h2>🔀 Simulator &amp; 🤖 Claude AI</h2>
+<p><strong>🔀 Simulator</strong> : envoie des messages SIP de test, traduit les cause codes Q.850↔SIP↔H.323, analyse le SDP. <strong>🤖 Claude AI</strong> : ouvre claude.ai dans un onglet intégré pour analyser les journaux et aider sur les configs.</p>
+</section>
+
+<section>
+<h2>🌐 Langue &amp; disposition</h2>
+<p>Menu <strong>🌐 Langue</strong> : IT, EN, FR, DE, ES (redémarrez l'app après le changement). La <strong>disposition</strong> (taille/position de la fenêtre et séparateur) est enregistrée et restaurée au redémarrage.</p>
+</section>
+
+<section>
+<h2>🔧 Dépannage</h2>
+<h3>SSH ne démarre pas</h3><p>Placez <code>putty.exe</code> à côté de l'exe ou dans <code>C:\Program Files\PuTTY\</code>.</p>
+<h3>PCAP ne fonctionne pas</h3><p>Installez Wireshark avec <strong>TShark</strong> ; redémarrez l'app.</p>
+<h3>Ladder « Aucun message SIP »</h3><p>SIP sur port non standard : dans Wireshark utilisez <em>Decode As</em> pour mapper le port en SIP.</p>
+<h3>Syslog : port 514 occupé</h3><p>Une session mal fermée laisse un socket orphelin : fermez avec <strong>Arrêter</strong>, utilisez 1514 ou redémarrez le PC.</p>
+<h3>TranslatorX « No known messages »</h3><p>TranslatorX n'ouvre que des <strong>traces SDL Cisco</strong>, ni pcap ni syslog AudioCodes.</p>
+<h3>Connexions/mots de passe</h3><p>Dans <code>%APPDATA%\LosaTermVoip\connections.json</code>, chiffrés DPAPI : valables uniquement sur le même PC/utilisateur.</p>
+</section>
+</div>
+
+<!-- ══════════════════ DEUTSCH ══════════════════ -->
+<div class="lang de">
+<section>
+<h2>📋 Voraussetzungen</h2>
+<p>LosaTermVoip ist eine portable <code>.exe</code> (keine Installation). Externe Software:</p>
+<table>
+<tr><th>Software</th><th>Zweck</th><th>Nötig</th></tr>
+<tr><td><a href="https://www.putty.org" target="_blank">PuTTY</a> (putty.exe, pscp.exe, psftp.exe)</td><td>Eingebettetes SSH-Terminal, SCP, SFTP</td><td><span class="badge req">für SSH/SCP/SFTP</span></td></tr>
+<tr><td><a href="https://www.wireshark.org/download.html" target="_blank">Wireshark</a> (mit tshark)</td><td>PCAP-Analyse — SIP/H.323/MEGACO/Skinny-Ladder</td><td><span class="badge req">für PCAP</span></td></tr>
+<tr><td>TranslatorX</td><td>Öffnen von Cisco-CUCM-SDL-Traces</td><td><span class="badge opt">optional</span></td></tr>
+<tr><td>.NET Framework 4.8</td><td>Runtime (bereits auf Win10/11)</td><td><span class="badge req">erforderlich</span></td></tr>
+<tr><td>Chrome / Edge</td><td>Claude AI in-app, URLs öffnen</td><td><span class="badge opt">optional</span></td></tr>
+</table>
+<p>Daten unter <code>%APPDATA%\LosaTermVoip\</code>. Passwörter mit Windows DPAPI verschlüsselt (nur am gleichen PC/Benutzer gültig).</p>
+</section>
+
+<section>
+<h2>⚙️ Installation</h2>
+<ol>
+<li>Installiere <strong>PuTTY</strong> und <strong>Wireshark</strong> (beim Setup <strong>TShark</strong> anhaken).</li>
+<li>Kopiere <code>LosaTermVoip.exe</code> beliebig und starte sie: keine Installation.</li>
+<li>Verbindungen des alten NetTerm werden beim ersten Start automatisch importiert.</li>
+</ol>
+</section>
+
+<section>
+<h2>🔌 Verbindungen</h2>
+<p><strong>+ Neu</strong> zum Erstellen. Felder: Name, Host/IP, Port, Protokoll (SSH·SFTP·SCP·FTP·HTTP·HTTPS), Benutzer, Passwort, VPN-Typ (Hinweis), Browser und Pfad (für HTTP/HTTPS).</p>
+<ul>
+<li><strong>Doppelklick</strong> = sofort verbinden (eingebettetes SSH).</li>
+<li><strong>Rechtsklick</strong> = Menü (SSH-Fenster, SFTP, SCP, FTP, Bearbeiten, Löschen).</li>
+</ul>
+</section>
+
+<section>
+<h2>🖥️ SSH</h2>
+<p>PuTTY wird im Tab <strong>eingebettet</strong>. Bei aktiver Sitzung zeigt die Symbolleiste: <strong>📊 Analyzer</strong> (blendet das Panel unter dem Terminal ein/aus), <strong>📄 Log</strong>, <strong>✕ Schließen</strong>. Jede Sitzung schreibt ein Log nach <code>%APPDATA%\LosaTermVoip\logs\</code>, in Echtzeit analysiert.</p>
+</section>
+
+<section>
+<h2>📁 FTP / SFTP / SCP</h2>
+<p><strong>FTP</strong> öffnet einen grafischen Datei-Browser (navigieren, hochladen, herunterladen). <strong>SCP</strong> öffnet ein Übertragungsfenster mit Option <strong>rekursiv (-r)</strong> für Ordner.</p>
+<div class="warn-box">⚠ Auf Cisco IOS bedeutet <code>unexpected end-of-file</code>, dass kein SCP/SFTP-Server aktiv ist: nötig sind <code>ip scp server enable</code> und ein Pfad wie <code>flash:</code> (nicht <code>~/</code>), mit Privilege-15-Benutzer.</div>
+</section>
+
+<section>
+<h2>🖧 Server (FTP / SFTP)</h2>
+<p>Die Schaltfläche <strong>🖧 Server</strong> macht den PC zum <strong>FTP-Server</strong> (reiner TcpListener, PASV-Modus) oder konfiguriert den <strong>SFTP-Server</strong> über Windows OpenSSH. Praktisch, um Dateien von Gateways/SBCs zu empfangen.</p>
+</section>
+
+<section>
+<h2>🔍 Analyzer &amp; 📦 PCAP / Ladder</h2>
+<p>Der Analyzer prüft SSH-Logs und PCAPs und hebt Ereignisse nach Schweregrad farbig hervor (Critical/Error/Warning/Info). Regeln für <strong>CUBE</strong> (IOS Voice Gateway) und <strong>CUCM</strong>.</p>
+<h3>Ladder-Diagramm</h3>
+<ul>
+<li>PCAP über die Schaltfläche <strong>📦 PCAP</strong> öffnen oder per <strong>Ziehen</strong> auf das Fenster.</li>
+<li>Ladder-Diagramm mit Endpunkten (IP:Port) und Nachrichtenpfeilen mit Zeitstempel.</li>
+<li><strong>Nach Anruf filtern</strong>: Die Liste zeigt jeden Anruf als <em>Anrufer → Angerufener [Zeit] N Msg</em>; einen wählen, um nur diese Nachrichten zu isolieren.</li>
+<li>Doppelklick oder <strong>🔍 Anruf folgen</strong>, um das ganze Gespräch hervorzuheben.</li>
+<li>SIP, H.323, MEGACO und Skinny werden vereint und nach Zeitstempel sortiert.</li>
+</ul>
+</section>
+
+<section>
+<h2>📡 Protokolle</h2>
+<div class="proto-grid">
+<div class="proto-card"><div class="icon">📞</div><h4>SIP / SIP-I</h4><p>INVITE, BYE, REGISTER, OPTIONS, 1xx-6xx-Antworten, SDP/Codecs, gekapseltes ISUP.</p></div>
+<div class="proto-card"><div class="icon">🔷</div><h4>H.323</h4><p>H.225 (Setup, Connect, ReleaseComplete), H.245, RAS.</p></div>
+<div class="proto-card"><div class="icon">🎛️</div><h4>MEGACO / H.248</h4><p>ServiceChange, Add/Subtract/Modify, Notify.</p></div>
+<div class="proto-card"><div class="icon">☎️</div><h4>Skinny / SCCP</h4><p>Register, CallState, OpenReceiveChannel, StartMediaTransmission.</p></div>
+</div>
+</section>
+
+<section>
+<h2>📖 Doc.</h2>
+<p>Eine <strong>von Hand editierbare</strong> Sammlung von Doku-Links: Hinzufügen / Bearbeiten / Entfernen / Öffnen, mit Kategoriefilter. Voreinstellungen enthalten (CUCM SRND, CUBE, AudioCodes). Doppelklick öffnet im Browser. Gespeichert in <code>doclinks.json</code>.</p>
+</section>
+
+<section>
+<h2>📡 Syslog-Server</h2>
+<p>Die Schaltfläche <strong>📡 Syslog</strong> öffnet einen <strong>UDP-Syslog-Server</strong> im AudioCodes/Cisco-Stil.</p>
+<ul>
+<li>Port wählen (Standard 514) und <strong>Start</strong>. Gerät so konfigurieren, dass es Syslog an die PC-IP sendet.</li>
+<li>Farbige Schweregrade, SIP-Hervorhebung, Textfilter, „Nur SIP/Call“, Datei schreiben und Export.</li>
+<li><strong>Stopp</strong> gibt den Port frei. Ist 514 durch eine schlecht beendete Sitzung belegt, 1514 nutzen oder PC neu starten.</li>
+</ul>
+</section>
+
+<section>
+<h2>🖱️ Drag &amp; Drop</h2>
+<p>Datei auf das Fenster ziehen und Aktion wählen:</p>
+<ul>
+<li><strong>.pcap / .cap</strong> → Hier analysieren (Ladder) oder Syslog-Viewer.</li>
+<li><strong>log / trace</strong> → <strong>In TranslatorX öffnen</strong> (Cisco-CUCM-SDL-Trace) oder Syslog-Viewer (AudioCodes).</li>
+</ul>
+</section>
+
+<section>
+<h2>🔀 Simulator &amp; 🤖 Claude AI</h2>
+<p><strong>🔀 Simulator</strong>: sendet Test-SIP-Nachrichten, übersetzt Q.850↔SIP↔H.323-Cause-Codes, analysiert SDP. <strong>🤖 Claude AI</strong>: öffnet claude.ai in einem eingebetteten Tab zur Log-Analyse und Konfig-Hilfe.</p>
+</section>
+
+<section>
+<h2>🌐 Sprache &amp; Layout</h2>
+<p>Menü <strong>🌐 Sprache</strong>: IT, EN, FR, DE, ES (App nach Wechsel neu starten). Das <strong>Layout</strong> (Fenstergröße/-position und Splitter) wird gespeichert und beim Neustart wiederhergestellt.</p>
+</section>
+
+<section>
+<h2>🔧 Fehlerbehebung</h2>
+<h3>SSH startet nicht</h3><p>Lege <code>putty.exe</code> neben die exe oder in <code>C:\Program Files\PuTTY\</code>.</p>
+<h3>PCAP funktioniert nicht</h3><p>Wireshark mit <strong>TShark</strong> installieren; App neu starten.</p>
+<h3>Ladder zeigt „Keine SIP-Nachrichten“</h3><p>SIP auf Nicht-Standard-Port: in Wireshark <em>Decode As</em> nutzen, um den Port als SIP zu mappen.</p>
+<h3>Syslog: Port 514 belegt</h3><p>Eine schlecht beendete Sitzung hinterlässt ein verwaistes Socket: mit <strong>Stopp</strong> schließen, 1514 nutzen oder PC neu starten.</p>
+<h3>TranslatorX „No known messages“</h3><p>TranslatorX öffnet nur <strong>Cisco-SDL-Traces</strong>, keine pcaps oder AudioCodes-Syslog.</p>
+<h3>Verbindungen/Passwörter</h3><p>In <code>%APPDATA%\LosaTermVoip\connections.json</code>, DPAPI-verschlüsselt: nur am gleichen PC/Benutzer gültig.</p>
+</section>
+</div>
+
+<!-- ══════════════════ ESPAÑOL ══════════════════ -->
+<div class="lang es">
+<section>
+<h2>📋 Requisitos</h2>
+<p>LosaTermVoip es un <code>.exe</code> portable (sin instalación). Software externo:</p>
+<table>
+<tr><th>Software</th><th>Uso</th><th>Necesario</th></tr>
+<tr><td><a href="https://www.putty.org" target="_blank">PuTTY</a> (putty.exe, pscp.exe, psftp.exe)</td><td>Terminal SSH integrado, SCP, SFTP</td><td><span class="badge req">para SSH/SCP/SFTP</span></td></tr>
+<tr><td><a href="https://www.wireshark.org/download.html" target="_blank">Wireshark</a> (con tshark)</td><td>Análisis PCAP — ladder SIP/H.323/MEGACO/Skinny</td><td><span class="badge req">para PCAP</span></td></tr>
+<tr><td>TranslatorX</td><td>Abrir trazas SDL de Cisco CUCM</td><td><span class="badge opt">opcional</span></td></tr>
+<tr><td>.NET Framework 4.8</td><td>Runtime (ya en Win10/11)</td><td><span class="badge req">requerido</span></td></tr>
+<tr><td>Chrome / Edge</td><td>Claude AI integrado, abrir URLs</td><td><span class="badge opt">opcional</span></td></tr>
+</table>
+<p>Datos en <code>%APPDATA%\LosaTermVoip\</code>. Las contraseñas se cifran con Windows DPAPI (válidas solo en el mismo PC/usuario).</p>
+</section>
+
+<section>
+<h2>⚙️ Instalación</h2>
+<ol>
+<li>Instala <strong>PuTTY</strong> y <strong>Wireshark</strong> (marca <strong>TShark</strong> durante el setup).</li>
+<li>Copia <code>LosaTermVoip.exe</code> donde quieras y ejecútalo: sin instalación.</li>
+<li>Las conexiones del antiguo NetTerm se importan automáticamente en el primer arranque.</li>
+</ol>
+</section>
+
+<section>
+<h2>🔌 Conexiones</h2>
+<p><strong>+ Nueva</strong> para crear una. Campos: Nombre, Host/IP, Puerto, Protocolo (SSH·SFTP·SCP·FTP·HTTP·HTTPS), Usuario, Contraseña, Tipo VPN (informativo), Navegador y Ruta (para HTTP/HTTPS).</p>
+<ul>
+<li><strong>Doble clic</strong> = conectar (SSH integrado).</li>
+<li><strong>Clic derecho</strong> = menú (SSH ventana, SFTP, SCP, FTP, Editar, Eliminar).</li>
+</ul>
+</section>
+
+<section>
+<h2>🖥️ SSH</h2>
+<p>PuTTY queda <strong>integrado</strong> en la pestaña. Con sesión activa la barra muestra: <strong>📊 Analizador</strong> (muestra/oculta el panel bajo el terminal), <strong>📄 Log</strong>, <strong>✕ Cerrar</strong>. Cada sesión escribe un log en <code>%APPDATA%\LosaTermVoip\logs\</code>, analizado en tiempo real.</p>
+</section>
+
+<section>
+<h2>📁 FTP / SFTP / SCP</h2>
+<p><strong>FTP</strong> abre un explorador de archivos gráfico (navegar, subir, descargar). <strong>SCP</strong> abre una ventana de transferencia con opción <strong>recursivo (-r)</strong> para carpetas.</p>
+<div class="warn-box">⚠ En Cisco IOS el error <code>unexpected end-of-file</code> significa que el dispositivo no tiene servidor SCP/SFTP activo: hace falta <code>ip scp server enable</code> y una ruta tipo <code>flash:</code> (no <code>~/</code>), con usuario de privilegio 15.</div>
+</section>
+
+<section>
+<h2>🖧 Servidor (FTP / SFTP)</h2>
+<p>El botón <strong>🖧 Server</strong> convierte el PC en <strong>servidor FTP</strong> (TcpListener puro, modo PASV) o configura el <strong>servidor SFTP</strong> vía OpenSSH de Windows. Útil para recibir archivos desde gateways/SBC.</p>
+</section>
+
+<section>
+<h2>🔍 Analizador &amp; 📦 PCAP / Ladder</h2>
+<p>El analizador examina logs SSH y PCAPs, resaltando eventos por gravedad con color (Critical/Error/Warning/Info). Reglas para <strong>CUBE</strong> (IOS Voice Gateway) y <strong>CUCM</strong>.</p>
+<h3>Diagrama Ladder</h3>
+<ul>
+<li>Abre un PCAP con el botón <strong>📦 PCAP</strong> o <strong>arrastrándolo</strong> a la ventana.</li>
+<li>Diagrama con extremos (IP:puerto) y flechas de mensajes con marca de tiempo.</li>
+<li><strong>Filtrar por llamada</strong>: el desplegable muestra cada llamada como <em>llamante → llamado [hora] N msg</em>; elígela para aislar solo esos mensajes.</li>
+<li>Doble clic o <strong>🔍 Seguir llamada</strong> para resaltar toda la conversación.</li>
+<li>SIP, H.323, MEGACO y Skinny se unifican y ordenan por marca de tiempo.</li>
+</ul>
+</section>
+
+<section>
+<h2>📡 Protocolos</h2>
+<div class="proto-grid">
+<div class="proto-card"><div class="icon">📞</div><h4>SIP / SIP-I</h4><p>INVITE, BYE, REGISTER, OPTIONS, respuestas 1xx-6xx, SDP/códecs, ISUP encapsulado.</p></div>
+<div class="proto-card"><div class="icon">🔷</div><h4>H.323</h4><p>H.225 (Setup, Connect, ReleaseComplete), H.245, RAS.</p></div>
+<div class="proto-card"><div class="icon">🎛️</div><h4>MEGACO / H.248</h4><p>ServiceChange, Add/Subtract/Modify, Notify.</p></div>
+<div class="proto-card"><div class="icon">☎️</div><h4>Skinny / SCCP</h4><p>Register, CallState, OpenReceiveChannel, StartMediaTransmission.</p></div>
+</div>
+</section>
+
+<section>
+<h2>📖 Doc.</h2>
+<p>Una colección de enlaces a documentación, <strong>editable a mano</strong>: Añadir / Editar / Quitar / Abrir, con filtro por categoría. Preajustes incluidos (CUCM SRND, CUBE, AudioCodes). Doble clic abre en el navegador. Guardado en <code>doclinks.json</code>.</p>
+</section>
+
+<section>
+<h2>📡 Servidor Syslog</h2>
+<p>El botón <strong>📡 Syslog</strong> abre un <strong>servidor syslog UDP</strong> al estilo AudioCodes/Cisco.</p>
+<ul>
+<li>Elige el puerto (por defecto 514) y pulsa <strong>Iniciar</strong>. Configura el dispositivo para enviar syslog a la IP del PC.</li>
+<li>Gravedades en color, resaltado de mensajes SIP, filtro de texto, «Solo SIP/Call», escritura a archivo y exportación.</li>
+<li><strong>Detener</strong> libera el puerto. Si el 514 está ocupado por una sesión mal cerrada, usa 1514 o reinicia el PC.</li>
+</ul>
+</section>
+
+<section>
+<h2>🖱️ Arrastrar y soltar</h2>
+<p>Arrastra un archivo a la ventana y elige la acción:</p>
+<ul>
+<li><strong>.pcap / .cap</strong> → Analizar aquí (Ladder) o visor Syslog.</li>
+<li><strong>log / traza</strong> → <strong>Abrir en TranslatorX</strong> (traza SDL de Cisco CUCM) o visor Syslog (AudioCodes).</li>
+</ul>
+</section>
+
+<section>
+<h2>🔀 Simulator &amp; 🤖 Claude AI</h2>
+<p><strong>🔀 Simulator</strong>: envía mensajes SIP de prueba, traduce los cause codes Q.850↔SIP↔H.323, analiza el SDP. <strong>🤖 Claude AI</strong>: abre claude.ai en una pestaña integrada para analizar logs y ayudar con las configuraciones.</p>
+</section>
+
+<section>
+<h2>🌐 Idioma &amp; diseño</h2>
+<p>Menú <strong>🌐 Idioma</strong>: IT, EN, FR, DE, ES (reinicia la app tras el cambio). El <strong>diseño</strong> (tamaño/posición de la ventana y divisor) se guarda y restaura al reiniciar.</p>
+</section>
+
+<section>
+<h2>🔧 Solución de problemas</h2>
+<h3>SSH no arranca</h3><p>Pon <code>putty.exe</code> junto al exe o en <code>C:\Program Files\PuTTY\</code>.</p>
+<h3>PCAP no funciona</h3><p>Instala Wireshark con <strong>TShark</strong>; reinicia la app.</p>
+<h3>Ladder muestra «Sin mensajes SIP»</h3><p>SIP en puerto no estándar: en Wireshark usa <em>Decode As</em> para mapear el puerto a SIP.</p>
+<h3>Syslog: puerto 514 ocupado</h3><p>Una sesión mal cerrada deja un socket huérfano: cierra con <strong>Detener</strong>, usa 1514 o reinicia el PC.</p>
+<h3>TranslatorX «No known messages»</h3><p>TranslatorX solo abre <strong>trazas SDL de Cisco</strong>, no pcaps ni syslog AudioCodes.</p>
+<h3>Conexiones/contraseñas</h3><p>En <code>%APPDATA%\LosaTermVoip\connections.json</code>, cifradas con DPAPI: válidas solo en el mismo PC/usuario.</p>
+</section>
+</div>
+
+</main>
+
+<footer>
+  <p>LosaTermVoip — VoIP Terminal Manager · Version 1.1 · 2026</p>
+  <p style="margin-top:6px;font-size:0.85em">Requires: PuTTY · Wireshark/tshark · .NET Framework 4.8 · Windows 10/11 — optional: TranslatorX, Chrome/Edge</p>
+</footer>
+
+<script>
+function setLang(l){
+  document.body.className = 'lang-' + l;
+  var btns = document.querySelectorAll('.langbtn');
+  for (var i=0;i<btns.length;i++) btns[i].classList.toggle('active', btns[i].getAttribute('data-l')===l);
+  try { localStorage.setItem('ltv_lang', l); } catch(e){}
+}
+(function(){
+  var saved = null;
+  try { saved = localStorage.getItem('ltv_lang'); } catch(e){}
+  if (!saved) {
+    var n = (navigator.language||'it').slice(0,2).toLowerCase();
+    saved = (['it','en','fr','de','es'].indexOf(n)>=0) ? n : 'it';
+  }
+  setLang(saved);
+})();
+</script>
+
+</body>
+</html>

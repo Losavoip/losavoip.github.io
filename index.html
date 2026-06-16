@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LosaTermVoip — Terminal & VoIP toolkit</title>
+<meta name="description" content="LosaTermVoip — a free terminal and VoIP troubleshooting toolkit for network and collaboration engineers.">
+<style>
+  :root{
+    --bg:#0c0f14; --bg2:#11151c; --card:#161b24; --border:#222b38;
+    --text:#e6edf3; --muted:#8b98a8; --accent:#3ddc97; --accent2:#27c2ff;
+    --shadow:0 8px 30px rgba(0,0,0,.4);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1200px 600px at 70% -10%,#13202b 0%,var(--bg) 55%);
+    color:var(--text);line-height:1.6;min-height:100vh;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+
+  /* NAV */
+  nav{display:flex;align-items:center;justify-content:space-between;padding:20px 22px;max-width:1040px;margin:0 auto}
+  .logo{font-weight:700;font-size:1.15rem;letter-spacing:.3px;display:flex;align-items:center;gap:9px}
+  .logo .dot{color:var(--accent)}
+  .lang{display:flex;gap:4px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:4px}
+  .lang button{background:none;border:0;color:var(--muted);cursor:pointer;font-size:.8rem;font-weight:600;padding:5px 9px;border-radius:7px;transition:.15s}
+  .lang button.active{background:var(--accent);color:#06281c}
+  .lang button:hover:not(.active){color:var(--text)}
+
+  /* HERO */
+  header{text-align:center;padding:64px 0 30px}
+  .badge{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.25);padding:6px 14px;border-radius:999px;margin-bottom:22px}
+  h1{font-size:clamp(2.1rem,5vw,3.4rem);line-height:1.1;font-weight:800;letter-spacing:-1px}
+  h1 .grad{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .sub{color:var(--muted);font-size:1.18rem;max-width:620px;margin:18px auto 0}
+  .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:1rem;padding:14px 26px;border-radius:12px;cursor:pointer;border:1px solid transparent;transition:transform .12s,box-shadow .12s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{background:linear-gradient(90deg,var(--accent),#34c98a);color:#06281c;box-shadow:0 8px 24px rgba(61,220,151,.28)}
+  .btn-ghost{background:var(--card);border-color:var(--border);color:var(--text)}
+  .note{color:var(--muted);font-size:.82rem;margin-top:14px}
+
+  /* terminal mock */
+  .term{max-width:680px;margin:46px auto 0;background:#0a0d12;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;text-align:left}
+  .term .bar{display:flex;gap:7px;padding:11px 14px;background:#11161e;border-bottom:1px solid var(--border)}
+  .term .bar span{width:11px;height:11px;border-radius:50%}
+  .term .bar .r{background:#ff5f56}.term .bar .y{background:#ffbd2e}.term .bar .g{background:#27c93f}
+  .term pre{padding:16px 18px;font-family:'Cascadia Code',Consolas,'Courier New',monospace;font-size:.86rem;color:#cdd6e0;overflow-x:auto}
+  .term .c-g{color:var(--accent)}.term .c-b{color:var(--accent2)}.term .c-m{color:var(--muted)}
+
+  /* SECTIONS */
+  section{padding:56px 0}
+  h2{font-size:1.7rem;font-weight:800;text-align:center;letter-spacing:-.5px}
+  .lead{color:var(--muted);text-align:center;max-width:580px;margin:12px auto 0}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:40px}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;transition:.18s}
+  .card:hover{border-color:var(--accent);transform:translateY(-3px)}
+  .card .ico{font-size:1.6rem;margin-bottom:12px}
+  .card h3{font-size:1.1rem;margin-bottom:7px}
+  .card p{color:var(--muted);font-size:.92rem}
+  .card .soon{display:inline-block;margin-top:12px;font-size:.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent2);border:1px solid rgba(39,194,255,.3);border-radius:6px;padding:3px 8px}
+  .card.flag{border-color:var(--accent);background:linear-gradient(160deg,rgba(61,220,151,.07),var(--card) 60%);box-shadow:0 0 0 1px rgba(61,220,151,.25)}
+  .card .new{display:inline-block;margin-bottom:10px;font-size:.66rem;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:#06281c;background:var(--accent);border-radius:6px;padding:3px 9px}
+
+  /* FORM */
+  .formwrap{max-width:620px;margin:40px auto 0;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:34px}
+  .field{margin-bottom:18px;text-align:left}
+  .field label{display:block;font-size:.85rem;font-weight:600;color:var(--muted);margin-bottom:7px}
+  .field input,.field select,.field textarea{
+    width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;
+    color:var(--text);font-size:.95rem;font-family:inherit;padding:12px 14px;transition:.15s}
+  .field textarea{resize:vertical;min-height:110px}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(61,220,151,.12)}
+  .field .req{color:var(--accent)}
+  .formwrap .btn-primary{width:100%;justify-content:center;margin-top:6px}
+  .formmsg{text-align:center;margin-top:16px;font-weight:600;display:none}
+  .formmsg.ok{display:block;color:var(--accent)}
+  .formmsg.err{display:block;color:#ff6b81}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:480px){.row2{grid-template-columns:1fr}}
+
+  /* DONATE */
+  .donate{background:var(--bg2);border:1px solid var(--border);border-radius:18px;padding:42px;text-align:center;margin-top:10px}
+  .donate h2{margin-bottom:8px}
+  .heart{color:#ff6b81}
+
+  footer{text-align:center;padding:40px 0 60px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--border);margin-top:40px}
+  footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Losa<span class="dot">Term</span>Voip</div>
+  <div class="lang" id="lang">
+    <button data-l="it">IT</button>
+    <button data-l="en">EN</button>
+    <button data-l="es">ES</button>
+    <button data-l="fr">FR</button>
+    <button data-l="de">DE</button>
+  </div>
+</nav>
+
+<header class="wrap">
+  <span class="badge" data-t="badge">For VoIP &amp; Network Engineers</span>
+  <span class="badge" style="margin-left:8px;color:var(--accent2);background:rgba(39,194,255,.08);border-color:rgba(39,194,255,.25)">v1.1 · Beta</span>
+  <h1><span data-t="h1a">A terminal built for</span> <span class="grad" data-t="h1b">VoIP troubleshooting</span></h1>
+  <p class="sub" data-t="sub">A free, no-nonsense terminal with built-in tools for analyzing Cisco SDL traces, syslog and SIP signaling. Made by an engineer, for engineers.</p>
+  <div class="cta">
+    <a class="btn btn-primary" href="#" id="download">⬇ <span data-t="dl">Download (Windows)</span></a>
+    <a class="btn btn-ghost" href="#" id="manual" target="_blank" rel="noopener">📖 <span data-t="man">User manual</span></a>
+    <a class="btn btn-ghost" href="#tools" data-t="explore">Explore the tools</a>
+  </div>
+  <p class="note" data-t="dlnote">Free · Portable .exe · Windows 10/11 · ~2 MB</p>
+
+  <div class="term">
+    <div class="bar"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+<pre><span class="c-m"># LosaTermVoip — session</span>
+<span class="c-g">losa&gt;</span> open trace SDL001_100_000123.txt
+<span class="c-b">[ok]</span> parsed 4218 lines · 37 SIP messages
+<span class="c-g">losa&gt;</span> ladder --call 0xA3F1
+<span class="c-b">INVITE</span> ──────────────▶  <span class="c-m">100 Trying</span>
+<span class="c-b">180 Ringing</span> ◀──────────  <span class="c-m">200 OK</span>
+<span class="c-g">losa&gt;</span> <span class="c-m">_</span></pre>
+  </div>
+</header>
+
+<section id="tools" class="wrap">
+  <h2 data-t="toolsH">The toolkit</h2>
+  <p class="lead" data-t="toolsL">Everything in one window. More tools land as the project grows — tell me what you need.</p>
+  <div class="grid">
+    <div class="card flag"><span class="new" data-t="tsbN">New</span><div class="ico">🩺</div><h3 data-t="tsbH">SBC Health</h3><p data-t="tsbP">Vendor-neutral trunk diagnostics: SIP OPTIONS test, TLS certificate &amp; expiry check, DNS SRV/A lookup. Works on Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE, Asterisk.</p></div>
+    <div class="card"><div class="ico">🪜</div><h3 data-t="t1H">SDL Ladder Viewer</h3><p data-t="t1P">Turn Cisco CallManager SDL/SDI traces into clean SIP ladder diagrams.</p></div>
+    <div class="card"><div class="ico">📟</div><h3 data-t="t2H">Syslog Server</h3><p data-t="t2P">Built-in UDP syslog collector with live viewer — no extra software.</p></div>
+    <div class="card"><div class="ico">🔀</div><h3 data-t="t3H">TranslatorX Launch</h3><p data-t="t3P">One-click hand-off of traces and pcaps to TranslatorX.</p></div>
+    <div class="card"><div class="ico">🖥️</div><h3 data-t="t4H">SSH / Telnet</h3><p data-t="t4P">Tabbed terminal with saved layouts and quick-connect profiles.</p></div>
+    <div class="card"><div class="ico">📁</div><h3 data-t="t5H">FTP / SFTP Server</h3><p data-t="t5P">Spin up a temporary file server for config and firmware transfers.</p></div>
+    <div class="card"><div class="ico">✨</div><h3 data-t="t6H">More coming</h3><p data-t="t6P">Your feedback shapes the roadmap.</p><span class="soon" data-t="t6S">Vote on GitHub</span></div>
+  </div>
+</section>
+
+<section id="feedback" class="wrap">
+  <h2 data-t="fbH">Send feedback</h2>
+  <p class="lead" data-t="fbL">Found a bug? Missing a feature? Tell me — this is exactly how the tool improves.</p>
+  <div class="formwrap">
+    <form id="fbForm">
+      <div class="row2">
+        <div class="field">
+          <label data-t="fbName">Name (optional)</label>
+          <input type="text" name="name">
+        </div>
+        <div class="field">
+          <label data-t="fbEmail">Email (optional, for a reply)</label>
+          <input type="email" name="email">
+        </div>
+      </div>
+      <div class="field">
+        <label data-t="fbType">Type</label>
+        <select name="type">
+          <option data-t="fbT1">Bug report</option>
+          <option data-t="fbT2">Feature idea</option>
+          <option data-t="fbT3">General feedback</option>
+        </select>
+      </div>
+      <div class="field">
+        <label><span data-t="fbMsg">Message</span> <span class="req">*</span></label>
+        <textarea name="message" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" id="fbBtn">✉ <span data-t="fbBtn">Send feedback</span></button>
+      <p class="formmsg" id="fbResult"></p>
+    </form>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="donate">
+    <h2><span class="heart">♥</span> <span data-t="donH">Like it? Buy me a coffee</span></h2>
+    <p class="lead" data-t="donL">LosaTermVoip is free and stays free. If it saved you a late-night debug session, a small donation keeps it alive.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="#" id="donate" target="_blank" rel="noopener">☕ <span data-t="donBtn">Donate</span></a>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <p>LosaTermVoip · <span data-t="footMade">made by Daniele Losapio</span> · <a href="#" id="manualFoot" target="_blank" rel="noopener" data-t="man">User manual</a> · <a href="#" id="gh">GitHub</a></p>
+  <p style="margin-top:8px;opacity:.7" data-t="footDisc">Not affiliated with Cisco or TranslatorX. Trademarks belong to their owners.</p>
+</footer>
+
+<script>
+const I18N = {
+  it:{badge:"Per ingegneri VoIP e di rete",h1a:"Un terminale pensato per il",h1b:"troubleshooting VoIP",
+    sub:"Un terminale gratuito e diretto, con strumenti integrati per analizzare trace SDL Cisco, syslog e segnalazione SIP. Fatto da un ingegnere, per gli ingegneri.",
+    dl:"Scarica (Windows)",man:"Manuale utente",explore:"Esplora gli strumenti",dlnote:"Gratis · .exe portable · Windows 10/11 · ~2 MB",
+    toolsH:"Gli strumenti",toolsL:"Tutto in una finestra. Nuovi strumenti arrivano col progetto — dimmi cosa ti serve.",
+    tsbN:"Novità",tsbH:"SBC Health",tsbP:"Diagnostica trunk vendor-neutral: test SIP OPTIONS, controllo certificato e scadenza TLS, lookup DNS SRV/A. Funziona su Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE, Asterisk.",
+    t1H:"Visualizzatore Ladder SDL",t1P:"Trasforma le trace SDL/SDI di Cisco CallManager in diagrammi ladder SIP puliti.",
+    t2H:"Server Syslog",t2P:"Collector syslog UDP integrato con viewer live — senza software extra.",
+    t3H:"Avvio TranslatorX",t3P:"Passaggio con un clic di trace e pcap a TranslatorX.",
+    t4H:"SSH / Telnet",t4P:"Terminale a schede con layout salvati e profili quick-connect.",
+    t5H:"Server FTP / SFTP",t5P:"Avvia un file server temporaneo per config e firmware.",
+    t6H:"Altro in arrivo",t6P:"Il tuo feedback definisce la roadmap.",t6S:"Vota su GitHub",
+    donH:"Ti piace? Offrimi un caffè",donL:"LosaTermVoip è gratis e resta gratis. Se ti ha salvato un debug notturno, una piccola donazione lo tiene in vita.",
+    donBtn:"Dona",footMade:"creato da Daniele Losapio",footDisc:"Non affiliato a Cisco o TranslatorX. I marchi appartengono ai rispettivi proprietari.",
+    fbH:"Invia feedback",fbL:"Hai trovato un bug? Manca una funzione? Dimmelo — è così che lo strumento migliora.",fbName:"Nome (facoltativo)",fbEmail:"Email (facoltativa, per risponderti)",fbType:"Tipo",fbT1:"Segnalazione bug",fbT2:"Idea / funzione",fbT3:"Feedback generico",fbMsg:"Messaggio",fbBtn:"Invia feedback",fbSending:"Invio…",fbOk:"Grazie! Feedback ricevuto. ♥",fbErr:"Ops, invio non riuscito. Riprova o scrivimi via email."},
+  en:{badge:"For VoIP & Network Engineers",h1a:"A terminal built for",h1b:"VoIP troubleshooting",
+    sub:"A free, no-nonsense terminal with built-in tools for analyzing Cisco SDL traces, syslog and SIP signaling. Made by an engineer, for engineers.",
+    dl:"Download (Windows)",man:"User manual",explore:"Explore the tools",dlnote:"Free · Portable .exe · Windows 10/11 · ~2 MB",
+    toolsH:"The toolkit",toolsL:"Everything in one window. More tools land as the project grows — tell me what you need.",
+    tsbN:"New",tsbH:"SBC Health",tsbP:"Vendor-neutral trunk diagnostics: SIP OPTIONS test, TLS certificate & expiry check, DNS SRV/A lookup. Works on Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE, Asterisk.",
+    t1H:"SDL Ladder Viewer",t1P:"Turn Cisco CallManager SDL/SDI traces into clean SIP ladder diagrams.",
+    t2H:"Syslog Server",t2P:"Built-in UDP syslog collector with live viewer — no extra software.",
+    t3H:"TranslatorX Launch",t3P:"One-click hand-off of traces and pcaps to TranslatorX.",
+    t4H:"SSH / Telnet",t4P:"Tabbed terminal with saved layouts and quick-connect profiles.",
+    t5H:"FTP / SFTP Server",t5P:"Spin up a temporary file server for config and firmware transfers.",
+    t6H:"More coming",t6P:"Your feedback shapes the roadmap.",t6S:"Vote on GitHub",
+    donH:"Like it? Buy me a coffee",donL:"LosaTermVoip is free and stays free. If it saved you a late-night debug session, a small donation keeps it alive.",
+    donBtn:"Donate",footMade:"made by Daniele Losapio",footDisc:"Not affiliated with Cisco or TranslatorX. Trademarks belong to their owners.",
+    fbH:"Send feedback",fbL:"Found a bug? Missing a feature? Tell me — this is exactly how the tool improves.",fbName:"Name (optional)",fbEmail:"Email (optional, for a reply)",fbType:"Type",fbT1:"Bug report",fbT2:"Feature idea",fbT3:"General feedback",fbMsg:"Message",fbBtn:"Send feedback",fbSending:"Sending…",fbOk:"Thanks! Feedback received. ♥",fbErr:"Oops, sending failed. Try again or email me."},
+  es:{badge:"Para ingenieros VoIP y de red",h1a:"Una terminal pensada para el",h1b:"diagnóstico VoIP",
+    sub:"Una terminal gratuita y directa, con herramientas integradas para analizar trazas SDL de Cisco, syslog y señalización SIP. Hecha por un ingeniero, para ingenieros.",
+    dl:"Descargar (Windows)",man:"Manual de usuario",explore:"Ver las herramientas",dlnote:"Gratis · .exe portable · Windows 10/11 · ~2 MB",
+    toolsH:"Las herramientas",toolsL:"Todo en una ventana. Más herramientas llegan con el proyecto — dime qué necesitas.",
+    tsbN:"Nuevo",tsbH:"SBC Health",tsbP:"Diagnóstico de trunk vendor-neutral: test SIP OPTIONS, comprobación de certificado y caducidad TLS, búsqueda DNS SRV/A. Funciona en Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE, Asterisk.",
+    t1H:"Visor Ladder SDL",t1P:"Convierte trazas SDL/SDI de Cisco CallManager en diagramas ladder SIP claros.",
+    t2H:"Servidor Syslog",t2P:"Colector syslog UDP integrado con visor en vivo — sin software extra.",
+    t3H:"Lanzar TranslatorX",t3P:"Envío de trazas y pcaps a TranslatorX con un clic.",
+    t4H:"SSH / Telnet",t4P:"Terminal con pestañas, diseños guardados y perfiles de conexión rápida.",
+    t5H:"Servidor FTP / SFTP",t5P:"Levanta un servidor de archivos temporal para configs y firmware.",
+    t6H:"Más en camino",t6P:"Tu feedback define la hoja de ruta.",t6S:"Vota en GitHub",
+    donH:"¿Te gusta? Invítame un café",donL:"LosaTermVoip es gratis y seguirá siéndolo. Si te salvó una depuración nocturna, una pequeña donación lo mantiene vivo.",
+    donBtn:"Donar",footMade:"creado por Daniele Losapio",footDisc:"No afiliado a Cisco ni TranslatorX. Las marcas pertenecen a sus dueños.",
+    fbH:"Enviar comentarios",fbL:"¿Encontraste un error? ¿Falta una función? Dímelo — así es como mejora la herramienta.",fbName:"Nombre (opcional)",fbEmail:"Email (opcional, para responderte)",fbType:"Tipo",fbT1:"Reporte de error",fbT2:"Idea / función",fbT3:"Comentario general",fbMsg:"Mensaje",fbBtn:"Enviar comentarios",fbSending:"Enviando…",fbOk:"¡Gracias! Comentario recibido. ♥",fbErr:"Ups, el envío falló. Inténtalo de nuevo o escríbeme."},
+  fr:{badge:"Pour ingénieurs VoIP et réseau",h1a:"Un terminal conçu pour le",h1b:"dépannage VoIP",
+    sub:"Un terminal gratuit et efficace, avec des outils intégrés pour analyser les traces SDL Cisco, syslog et la signalisation SIP. Fait par un ingénieur, pour les ingénieurs.",
+    dl:"Télécharger (Windows)",man:"Manuel utilisateur",explore:"Voir les outils",dlnote:"Gratuit · .exe portable · Windows 10/11 · ~2 Mo",
+    toolsH:"Les outils",toolsL:"Tout dans une fenêtre. D'autres outils arrivent avec le projet — dites-moi ce qu'il vous faut.",
+    tsbN:"Nouveau",tsbH:"SBC Health",tsbP:"Diagnostic de trunk vendor-neutral : test SIP OPTIONS, vérification du certificat et de l'expiration TLS, recherche DNS SRV/A. Fonctionne sur Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE, Asterisk.",
+    t1H:"Visionneuse Ladder SDL",t1P:"Transforme les traces SDL/SDI de Cisco CallManager en diagrammes ladder SIP clairs.",
+    t2H:"Serveur Syslog",t2P:"Collecteur syslog UDP intégré avec visualiseur en direct — sans logiciel supplémentaire.",
+    t3H:"Lancer TranslatorX",t3P:"Transfert des traces et pcaps vers TranslatorX en un clic.",
+    t4H:"SSH / Telnet",t4P:"Terminal à onglets avec dispositions enregistrées et profils de connexion rapide.",
+    t5H:"Serveur FTP / SFTP",t5P:"Démarrez un serveur de fichiers temporaire pour configs et firmware.",
+    t6H:"À venir",t6P:"Vos retours façonnent la feuille de route.",t6S:"Votez sur GitHub",
+    donH:"Ça vous plaît ? Offrez-moi un café",donL:"LosaTermVoip est gratuit et le restera. S'il vous a sauvé un débogage nocturne, un petit don le maintient en vie.",
+    donBtn:"Faire un don",footMade:"créé par Daniele Losapio",footDisc:"Non affilié à Cisco ou TranslatorX. Les marques appartiennent à leurs propriétaires.",
+    fbH:"Envoyer un retour",fbL:"Un bug ? Une fonction manquante ? Dites-le-moi — c'est ainsi que l'outil s'améliore.",fbName:"Nom (facultatif)",fbEmail:"Email (facultatif, pour répondre)",fbType:"Type",fbT1:"Rapport de bug",fbT2:"Idée de fonction",fbT3:"Retour général",fbMsg:"Message",fbBtn:"Envoyer un retour",fbSending:"Envoi…",fbOk:"Merci ! Retour bien reçu. ♥",fbErr:"Oups, l'envoi a échoué. Réessayez ou écrivez-moi."},
+  de:{badge:"Für VoIP- und Netzwerk-Ingenieure",h1a:"Ein Terminal für die",h1b:"VoIP-Fehlersuche",
+    sub:"Ein kostenloses, geradliniges Terminal mit integrierten Tools zur Analyse von Cisco-SDL-Traces, Syslog und SIP-Signalisierung. Von einem Ingenieur, für Ingenieure.",
+    dl:"Download (Windows)",man:"Handbuch",explore:"Tools ansehen",dlnote:"Kostenlos · Portable .exe · Windows 10/11 · ~2 MB",
+    toolsH:"Die Tools",toolsL:"Alles in einem Fenster. Mehr Tools kommen mit dem Projekt — sag mir, was du brauchst.",
+    tsbN:"Neu",tsbH:"SBC Health",tsbP:"Vendor-neutrale Trunk-Diagnose: SIP-OPTIONS-Test, TLS-Zertifikat- und Ablaufprüfung, DNS-SRV/A-Lookup. Funktioniert mit Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE, Asterisk.",
+    t1H:"SDL Ladder Viewer",t1P:"Verwandelt Cisco-CallManager-SDL/SDI-Traces in klare SIP-Ladder-Diagramme.",
+    t2H:"Syslog-Server",t2P:"Integrierter UDP-Syslog-Collector mit Live-Viewer — ohne Zusatzsoftware.",
+    t3H:"TranslatorX-Start",t3P:"Traces und Pcaps mit einem Klick an TranslatorX übergeben.",
+    t4H:"SSH / Telnet",t4P:"Terminal mit Tabs, gespeicherten Layouts und Quick-Connect-Profilen.",
+    t5H:"FTP- / SFTP-Server",t5P:"Temporären Dateiserver für Configs und Firmware starten.",
+    t6H:"Mehr in Arbeit",t6P:"Dein Feedback bestimmt die Roadmap.",t6S:"Auf GitHub abstimmen",
+    donH:"Gefällt es dir? Spendier mir einen Kaffee",donL:"LosaTermVoip ist kostenlos und bleibt es. Wenn es dir eine nächtliche Debug-Session erspart hat, hält eine kleine Spende es am Leben.",
+    donBtn:"Spenden",footMade:"erstellt von Daniele Losapio",footDisc:"Nicht mit Cisco oder TranslatorX verbunden. Marken gehören ihren Eigentümern.",
+    fbH:"Feedback senden",fbL:"Einen Bug gefunden? Eine Funktion fehlt? Sag es mir — so wird das Tool besser.",fbName:"Name (optional)",fbEmail:"E-Mail (optional, für eine Antwort)",fbType:"Art",fbT1:"Fehlerbericht",fbT2:"Funktionsidee",fbT3:"Allgemeines Feedback",fbMsg:"Nachricht",fbBtn:"Feedback senden",fbSending:"Senden…",fbOk:"Danke! Feedback erhalten. ♥",fbErr:"Hoppla, Senden fehlgeschlagen. Bitte erneut versuchen oder mailen."}
+};
+
+function setLang(l){
+  if(!I18N[l]) l="en";
+  document.documentElement.lang=l;
+  const t=I18N[l];
+  document.querySelectorAll("[data-t]").forEach(el=>{
+    const k=el.getAttribute("data-t");
+    if(t[k]!==undefined) el.textContent=t[k];
+  });
+  document.querySelectorAll("#lang button").forEach(b=>{
+    b.classList.toggle("active",b.dataset.l===l);
+  });
+  try{localStorage.setItem("losa_lang",l);}catch(e){}
+}
+
+// 1) saved choice  2) browser language  3) english
+const saved=(()=>{try{return localStorage.getItem("losa_lang");}catch(e){return null;}})();
+const browser=(navigator.language||"en").slice(0,2).toLowerCase();
+setLang(saved || (I18N[browser]?browser:"en"));
+
+document.getElementById("lang").addEventListener("click",e=>{
+  if(e.target.dataset.l) setLang(e.target.dataset.l);
+});
+
+/* ====== CONFIG — fill these in ====== */
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xnjyrnwd";
+// Manual already wired to the file shipped next to this page:
+document.getElementById("manual").href     = "LosaTermVoip_Manuale.html";
+document.getElementById("manualFoot").href = "LosaTermVoip_Manuale.html";
+// Fill these in when ready:
+document.getElementById("download").href = "LosaTermVoip_v1.1_beta.zip";
+document.getElementById("donate").href   = "https://paypal.me/DanieleLosapio";
+document.getElementById("gh").href       = "https://github.com/losavoip";
+
+/* ====== FEEDBACK FORM (AJAX to Formspree) ====== */
+const fbForm=document.getElementById("fbForm");
+fbForm.addEventListener("submit",async e=>{
+  e.preventDefault();
+  const btn=document.getElementById("fbBtn");
+  const res=document.getElementById("fbResult");
+  const t=I18N[document.documentElement.lang]||I18N.en;
+  res.className="formmsg";
+  btn.disabled=true; btn.style.opacity=".6"; btn.querySelector("span").textContent=t.fbSending;
+  try{
+    const r=await fetch(FORMSPREE_ENDPOINT,{
+      method:"POST",
+      headers:{"Accept":"application/json"},
+      body:new FormData(fbForm)
+    });
+    if(r.ok){ fbForm.reset(); res.textContent=t.fbOk; res.className="formmsg ok"; }
+    else { res.textContent=t.fbErr; res.className="formmsg err"; }
+  }catch(err){ res.textContent=t.fbErr; res.className="formmsg err"; }
+  btn.disabled=false; btn.style.opacity="1"; btn.querySelector("span").textContent=t.fbBtn;
+});
+</script>
+</body>
+</html>

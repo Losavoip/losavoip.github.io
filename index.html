@@ -51,6 +51,17 @@
   .term pre{padding:16px 18px;font-family:'Cascadia Code',Consolas,'Courier New',monospace;font-size:.86rem;color:#cdd6e0;overflow-x:auto}
   .term .c-g{color:var(--accent)}.term .c-b{color:var(--accent2)}.term .c-m{color:var(--muted)}
 
+  /* SCREENSHOTS GALLERY */
+  .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;margin-top:40px}
+  .shot{background:#0a0d12;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;text-align:left}
+  .shot .bar{display:flex;align-items:center;gap:7px;padding:9px 12px;background:#11161e;border-bottom:1px solid var(--border)}
+  .shot .bar span{width:10px;height:10px;border-radius:50%}
+  .shot .bar .r{background:#ff5f56}.shot .bar .y{background:#ffbd2e}.shot .bar .g{background:#27c93f}
+  .shot .bar .t{margin-left:6px;font-size:.72rem;color:var(--muted);font-weight:600}
+  .shot pre{padding:14px 16px;margin:0;font-family:'Cascadia Code',Consolas,'Courier New',monospace;font-size:.72rem;line-height:1.55;color:#cdd6e0;overflow-x:auto;white-space:pre}
+  .shot .cap{padding:10px 14px;border-top:1px solid var(--border);font-size:.82rem;color:var(--muted)}
+  .cg{color:var(--accent)}.cb{color:var(--accent2)}.cm{color:var(--muted)}.cy{color:#ffbd2e}.cr{color:#ff6b81}
+
   /* SECTIONS */
   section{padding:56px 0}
   h2{font-size:1.7rem;font-weight:800;text-align:center;letter-spacing:-.5px}
@@ -105,8 +116,7 @@
 </nav>
 
 <header class="wrap">
-  <span class="badge" data-t="badge">For VoIP &amp; Network Engineers</span>
-  <span class="badge" style="margin-left:8px;color:var(--accent2);background:rgba(39,194,255,.08);border-color:rgba(39,194,255,.25)">v1.1 · Beta</span>
+  <span class="badge" style="color:var(--accent2);background:rgba(39,194,255,.08);border-color:rgba(39,194,255,.25)">v1.1 · Beta</span>
   <h1><span data-t="h1a">A terminal built for</span> <span class="grad" data-t="h1b">VoIP troubleshooting</span></h1>
   <p class="sub" data-t="sub">A free, no-nonsense terminal with built-in tools for analyzing Cisco SDL traces, syslog and SIP signaling.</p>
   <div class="cta">
@@ -133,12 +143,65 @@
   <p class="lead" data-t="toolsL">Everything in one window. More tools land as the project grows — tell me what you need.</p>
   <div class="grid">
     <div class="card flag"><span class="new" data-t="tsbN">New</span><div class="ico">🩺</div><h3 data-t="tsbH">SBC Health</h3><p data-t="tsbP">Vendor-neutral trunk diagnostics: SIP OPTIONS test, TLS certificate &amp; expiry check, DNS SRV/A lookup. Works on Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE, Asterisk.</p></div>
-    <div class="card"><div class="ico">🪜</div><h3 data-t="t1H">SDL Ladder Viewer</h3><p data-t="t1P">Turn Cisco CallManager SDL/SDI traces into clean SIP ladder diagrams.</p></div>
-    <div class="card"><div class="ico">📟</div><h3 data-t="t2H">Syslog Server</h3><p data-t="t2P">Built-in UDP syslog collector with live viewer — no extra software.</p></div>
-    <div class="card"><div class="ico">🔀</div><h3 data-t="t3H">TranslatorX Launch</h3><p data-t="t3P">One-click hand-off of traces and pcaps to TranslatorX.</p></div>
-    <div class="card"><div class="ico">🖥️</div><h3 data-t="t4H">SSH / Telnet</h3><p data-t="t4P">Tabbed terminal with saved layouts and quick-connect profiles.</p></div>
-    <div class="card"><div class="ico">📁</div><h3 data-t="t5H">FTP / SFTP Server</h3><p data-t="t5P">Spin up a temporary file server for config and firmware transfers.</p></div>
-    <div class="card"><div class="ico">✨</div><h3 data-t="t6H">More coming</h3><p data-t="t6P">Your feedback shapes the roadmap.</p><span class="soon" data-t="t6S">Vote on GitHub</span></div>
+    <div class="card"><div class="ico">🪜</div><h3 data-t="t1H">SIP Ladder (PCAP &amp; SDL)</h3><p data-t="t1P">Turn PCAPs and Cisco SDL/SDI traces into clean SIP ladder diagrams — grouped per Call-ID like Wireshark, with auto-diagnosis and RTP/MOS voice quality.</p></div>
+    <div class="card"><div class="ico">📟</div><h3 data-t="t2H">Syslog Server</h3><p data-t="t2P">Built-in UDP syslog collector with a live viewer and SIP-only filter — no extra software.</p></div>
+    <div class="card"><div class="ico">🔀</div><h3 data-t="t3H">SIP Simulator &amp; Cause Codes</h3><p data-t="t3P">Craft and send SIP messages, translate Q.850 ⇄ SIP cause codes, and analyze SDP/codecs.</p></div>
+    <div class="card"><div class="ico">🖥️</div><h3 data-t="t4H">SSH / Telnet</h3><p data-t="t4P">Tabbed PuTTY-based terminal with quick-connect profiles and a live log analyzer.</p></div>
+    <div class="card"><span class="new" data-t="t5N">New</span><div class="ico">🔌</div><h3 data-t="t5H">Serial Console</h3><p data-t="t5P">Console gateways, SBCs and routers over COM — embedded in a tab, with the same live analyzer as SSH.</p></div>
+    <div class="card"><div class="ico">📁</div><h3 data-t="t6H">File &amp; Boot Servers</h3><p data-t="t6P">Spin up FTP / SFTP / TFTP / DHCP servers for config &amp; firmware transfers and lab provisioning.</p></div>
+    <div class="card"><div class="ico">🧰</div><h3 data-t="t7H">Net Tools</h3><p data-t="t7P">Ping, traceroute, TCP port check, MTU discovery and NTP check — all in one panel.</p></div>
+    <div class="card"><div class="ico">📖</div><h3 data-t="t8H">Debug Commands</h3><p data-t="t8P">A per-vendor cheat-sheet of the right debug/capture commands: Cisco CUBE/CUCM, AudioCodes, Ribbon, Teams, Asterisk and more.</p></div>
+    <div class="card"><div class="ico">✨</div><h3 data-t="t9H">More coming</h3><p data-t="t9P">Your feedback shapes the roadmap.</p><span class="soon" data-t="t9S">Vote on GitHub</span></div>
+  </div>
+</section>
+
+<section id="shots" class="wrap">
+  <h2 data-t="shotsH">See it in action</h2>
+  <p class="lead" data-t="shotsL">Real screens, sample data — your traces never leave your PC.</p>
+  <div class="gallery">
+
+    <div class="shot">
+      <div class="bar"><span class="r"></span><span class="y"></span><span class="g"></span><span class="t">SBC Health — TLS / Certificate</span></div>
+<pre><span class="cb">🔒</span> sbc.example.com:5061
+TLS negoziato : <span class="cg">Tls12</span>
+Cifratura     : Aes256 256 bit
+──────────────────────────────
+Soggetto (CN) : sbc.example.com
+SAN           : sbc.example.com, sip.example.com
+Emittente     : CN=Example Root CA
+Valido fino   : 12/03/2026  <span class="cy">⚠ scade tra 24 giorni</span></pre>
+      <div class="cap" data-t="shot1">TLS certificate check: CN/SAN and expiry.</div>
+    </div>
+
+    <div class="shot">
+      <div class="bar"><span class="r"></span><span class="y"></span><span class="g"></span><span class="t">Live SSH analyzer</span></div>
+<pre>Ora       Sev.    Regola            Linea
+14:03:40  <span class="cg">INFO</span>    INVITE entrante   👤 <span class="cb">1001 → 2002</span>
+14:03:41  <span class="cg">INFO</span>    180 Ringing       👤 1001 → 2002
+14:03:42  <span class="cg">INFO</span>    200 OK            👤 1001 → 2002
+14:03:55  <span class="cy">AVVISO</span>  488 Not Accept.   👤 1001 → 2002
+                                    <span class="cr">↳ codec mismatch</span></pre>
+      <div class="cap" data-t="shot2">Live anomalies with caller → callee at a glance.</div>
+    </div>
+
+    <div class="shot">
+      <div class="bar"><span class="r"></span><span class="y"></span><span class="g"></span><span class="t">PCAP — SIP Ladder</span></div>
+<pre>192.0.2.10            198.51.100.5
+   │  <span class="cg">INVITE</span> ───────────▶ │
+   │  100 Trying ◀─────── │
+   │  180 Ringing ◀────── │
+   │  <span class="cb">200 OK</span> ◀─────────── │
+   │  ACK ──────────────▶ │
+   │  <span class="cg">RTP g711U ▶ 1731 pkt</span>│
+   │  BYE ──────────────▶ │
+
+<span class="cm">══ Diagnosi automatica ══</span>
+<span class="cg">✓</span> Connessa (200) + BYE
+♪ Ringback locale (180)
+MOS stim.: <span class="cg">4.2</span> (buono)</pre>
+      <div class="cap" data-t="shot3">Wireshark-like ladder + auto-diagnosis &amp; MOS.</div>
+    </div>
+
   </div>
 </section>
 
@@ -186,13 +249,17 @@ const I18N = {
     sub:"Un terminale gratuito e diretto, con strumenti integrati per analizzare trace SDL Cisco, syslog e segnalazione SIP.",
     dl:"Scarica (Windows)",man:"Manuale utente",explore:"Esplora gli strumenti",dlnote:"Gratis · .exe portable · Windows 10/11 · ~2 MB",
     toolsH:"Gli strumenti",toolsL:"Tutto in una finestra. Nuovi strumenti arrivano col progetto — dimmi cosa ti serve.",
+    shotsH:"In azione",shotsL:"Schermate del tool con dati di esempio — le tue trace restano sul tuo PC.",shot1:"Controllo certificato TLS: CN/SAN e scadenza.",shot2:"Anomalie live con chiamante → chiamato a colpo d'occhio.",shot3:"Ladder come Wireshark + auto-diagnosi e MOS.",
     tsbN:"Novità",tsbH:"SBC Health",tsbP:"Diagnostica trunk vendor-neutral: test SIP OPTIONS, controllo certificato e scadenza TLS, lookup DNS SRV/A. Funziona su Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE, Asterisk.",
-    t1H:"Visualizzatore Ladder SDL",t1P:"Trasforma le trace SDL/SDI di Cisco CallManager in diagrammi ladder SIP puliti.",
-    t2H:"Server Syslog",t2P:"Collector syslog UDP integrato con viewer live — senza software extra.",
-    t3H:"Avvio TranslatorX",t3P:"Passaggio con un clic di trace e pcap a TranslatorX.",
-    t4H:"SSH / Telnet",t4P:"Terminale a schede con layout salvati e profili quick-connect.",
-    t5H:"Server FTP / SFTP",t5P:"Avvia un file server temporaneo per config e firmware.",
-    t6H:"Altro in arrivo",t6P:"Il tuo feedback definisce la roadmap.",t6S:"Vota su GitHub",
+    t1H:"SIP Ladder (PCAP & SDL)",t1P:"Trasforma PCAP e trace SDL/SDI Cisco in diagrammi ladder SIP puliti — raggruppati per Call-ID come Wireshark, con auto-diagnosi e qualità voce RTP/MOS.",
+    t2H:"Server Syslog",t2P:"Collector syslog UDP integrato con viewer live e filtro solo-SIP — senza software extra.",
+    t3H:"Simulatore SIP & Cause Code",t3P:"Crea e invia messaggi SIP, traduci i cause code Q.850 ⇄ SIP e analizza SDP/codec.",
+    t4H:"SSH / Telnet",t4P:"Terminale a schede (basato su PuTTY) con profili quick-connect e analizzatore log live.",
+    t5N:"Novità",t5H:"Console seriale",t5P:"Console di gateway, SBC e router via COM — embeddata in un tab, con lo stesso analizzatore live dell'SSH.",
+    t6H:"Server File & Boot",t6P:"Avvia server FTP / SFTP / TFTP / DHCP per trasferire config e firmware e per il provisioning in lab.",
+    t7H:"Net Tools",t7P:"Ping, traceroute, test porta TCP, scoperta MTU e verifica NTP — tutto in un pannello.",
+    t8H:"Comandi di debug",t8P:"Cheat-sheet per vendor con i comandi giusti di debug/capture: Cisco CUBE/CUCM, AudioCodes, Ribbon, Teams, Asterisk e altri.",
+    t9H:"Altro in arrivo",t9P:"Il tuo feedback definisce la roadmap.",t9S:"Vota su GitHub",
     donH:"Ti piace? Offrimi un caffè",donL:"LosaTermVoip è gratis e resta gratis. Se ti ha salvato un debug notturno, una piccola donazione lo tiene in vita.",
     donBtn:"Dona",footMade:"creato da Daniele Losapio",footDisc:"Non affiliato a Cisco o TranslatorX. I marchi appartengono ai rispettivi proprietari.",
     fbH:"Invia feedback",fbL:"Hai trovato un bug? Manca una funzione? Dimmelo — è così che lo strumento migliora.",fbName:"Nome (facoltativo)",fbEmail:"Email (facoltativa, per risponderti)",fbType:"Tipo",fbT1:"Segnalazione bug",fbT2:"Idea / funzione",fbT3:"Feedback generico",fbMsg:"Messaggio",fbBtn:"Invia feedback",fbSending:"Invio…",fbOk:"Grazie! Feedback ricevuto. ♥",fbErr:"Ops, invio non riuscito. Riprova o scrivimi via email."},
@@ -200,13 +267,17 @@ const I18N = {
     sub:"A free, no-nonsense terminal with built-in tools for analyzing Cisco SDL traces, syslog and SIP signaling.",
     dl:"Download (Windows)",man:"User manual",explore:"Explore the tools",dlnote:"Free · Portable .exe · Windows 10/11 · ~2 MB",
     toolsH:"The toolkit",toolsL:"Everything in one window. More tools land as the project grows — tell me what you need.",
+    shotsH:"See it in action",shotsL:"Tool screens with sample data — your traces never leave your PC.",shot1:"TLS certificate check: CN/SAN and expiry.",shot2:"Live anomalies with caller → callee at a glance.",shot3:"Wireshark-like ladder + auto-diagnosis & MOS.",
     tsbN:"New",tsbH:"SBC Health",tsbP:"Vendor-neutral trunk diagnostics: SIP OPTIONS test, TLS certificate & expiry check, DNS SRV/A lookup. Works on Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE, Asterisk.",
-    t1H:"SDL Ladder Viewer",t1P:"Turn Cisco CallManager SDL/SDI traces into clean SIP ladder diagrams.",
-    t2H:"Syslog Server",t2P:"Built-in UDP syslog collector with live viewer — no extra software.",
-    t3H:"TranslatorX Launch",t3P:"One-click hand-off of traces and pcaps to TranslatorX.",
-    t4H:"SSH / Telnet",t4P:"Tabbed terminal with saved layouts and quick-connect profiles.",
-    t5H:"FTP / SFTP Server",t5P:"Spin up a temporary file server for config and firmware transfers.",
-    t6H:"More coming",t6P:"Your feedback shapes the roadmap.",t6S:"Vote on GitHub",
+    t1H:"SIP Ladder (PCAP & SDL)",t1P:"Turn PCAPs and Cisco SDL/SDI traces into clean SIP ladder diagrams — grouped per Call-ID like Wireshark, with auto-diagnosis and RTP/MOS voice quality.",
+    t2H:"Syslog Server",t2P:"Built-in UDP syslog collector with a live viewer and SIP-only filter — no extra software.",
+    t3H:"SIP Simulator & Cause Codes",t3P:"Craft and send SIP messages, translate Q.850 ⇄ SIP cause codes, and analyze SDP/codecs.",
+    t4H:"SSH / Telnet",t4P:"Tabbed PuTTY-based terminal with quick-connect profiles and a live log analyzer.",
+    t5N:"New",t5H:"Serial Console",t5P:"Console gateways, SBCs and routers over COM — embedded in a tab, with the same live analyzer as SSH.",
+    t6H:"File & Boot Servers",t6P:"Spin up FTP / SFTP / TFTP / DHCP servers for config & firmware transfers and lab provisioning.",
+    t7H:"Net Tools",t7P:"Ping, traceroute, TCP port check, MTU discovery and NTP check — all in one panel.",
+    t8H:"Debug Commands",t8P:"A per-vendor cheat-sheet of the right debug/capture commands: Cisco CUBE/CUCM, AudioCodes, Ribbon, Teams, Asterisk and more.",
+    t9H:"More coming",t9P:"Your feedback shapes the roadmap.",t9S:"Vote on GitHub",
     donH:"Like it? Buy me a coffee",donL:"LosaTermVoip is free and stays free. If it saved you a late-night debug session, a small donation keeps it alive.",
     donBtn:"Donate",footMade:"made by Daniele Losapio",footDisc:"Not affiliated with Cisco or TranslatorX. Trademarks belong to their owners.",
     fbH:"Send feedback",fbL:"Found a bug? Missing a feature? Tell me — this is exactly how the tool improves.",fbName:"Name (optional)",fbEmail:"Email (optional, for a reply)",fbType:"Type",fbT1:"Bug report",fbT2:"Feature idea",fbT3:"General feedback",fbMsg:"Message",fbBtn:"Send feedback",fbSending:"Sending…",fbOk:"Thanks! Feedback received. ♥",fbErr:"Oops, sending failed. Try again or email me."},
@@ -214,13 +285,17 @@ const I18N = {
     sub:"Una terminal gratuita y directa, con herramientas integradas para analizar trazas SDL de Cisco, syslog y señalización SIP.",
     dl:"Descargar (Windows)",man:"Manual de usuario",explore:"Ver las herramientas",dlnote:"Gratis · .exe portable · Windows 10/11 · ~2 MB",
     toolsH:"Las herramientas",toolsL:"Todo en una ventana. Más herramientas llegan con el proyecto — dime qué necesitas.",
+    shotsH:"En acción",shotsL:"Pantallas con datos de ejemplo — tus trazas no salen de tu PC.",shot1:"Comprobación de certificado TLS: CN/SAN y caducidad.",shot2:"Anomalías en vivo con llamante → llamado de un vistazo.",shot3:"Ladder estilo Wireshark + autodiagnóstico y MOS.",
     tsbN:"Nuevo",tsbH:"SBC Health",tsbP:"Diagnóstico de trunk vendor-neutral: test SIP OPTIONS, comprobación de certificado y caducidad TLS, búsqueda DNS SRV/A. Funciona en Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE, Asterisk.",
-    t1H:"Visor Ladder SDL",t1P:"Convierte trazas SDL/SDI de Cisco CallManager en diagramas ladder SIP claros.",
-    t2H:"Servidor Syslog",t2P:"Colector syslog UDP integrado con visor en vivo — sin software extra.",
-    t3H:"Lanzar TranslatorX",t3P:"Envío de trazas y pcaps a TranslatorX con un clic.",
-    t4H:"SSH / Telnet",t4P:"Terminal con pestañas, diseños guardados y perfiles de conexión rápida.",
-    t5H:"Servidor FTP / SFTP",t5P:"Levanta un servidor de archivos temporal para configs y firmware.",
-    t6H:"Más en camino",t6P:"Tu feedback define la hoja de ruta.",t6S:"Vota en GitHub",
+    t1H:"SIP Ladder (PCAP y SDL)",t1P:"Convierte PCAPs y trazas SDL/SDI de Cisco en diagramas ladder SIP claros — agrupados por Call-ID como Wireshark, con autodiagnóstico y calidad de voz RTP/MOS.",
+    t2H:"Servidor Syslog",t2P:"Colector syslog UDP integrado con visor en vivo y filtro solo-SIP — sin software extra.",
+    t3H:"Simulador SIP y Cause Codes",t3P:"Crea y envía mensajes SIP, traduce cause codes Q.850 ⇄ SIP y analiza SDP/códecs.",
+    t4H:"SSH / Telnet",t4P:"Terminal con pestañas (basado en PuTTY) con perfiles de conexión rápida y analizador de logs en vivo.",
+    t5N:"Nuevo",t5H:"Consola serie",t5P:"Consola de gateways, SBCs y routers por COM — embebida en una pestaña, con el mismo analizador en vivo que SSH.",
+    t6H:"Servidores de archivos y arranque",t6P:"Levanta servidores FTP / SFTP / TFTP / DHCP para transferir configs y firmware y aprovisionar en laboratorio.",
+    t7H:"Net Tools",t7P:"Ping, traceroute, test de puerto TCP, descubrimiento de MTU y verificación NTP — todo en un panel.",
+    t8H:"Comandos de debug",t8P:"Una chuleta por fabricante con los comandos de debug/captura correctos: Cisco CUBE/CUCM, AudioCodes, Ribbon, Teams, Asterisk y más.",
+    t9H:"Más en camino",t9P:"Tu feedback define la hoja de ruta.",t9S:"Vota en GitHub",
     donH:"¿Te gusta? Invítame un café",donL:"LosaTermVoip es gratis y seguirá siéndolo. Si te salvó una depuración nocturna, una pequeña donación lo mantiene vivo.",
     donBtn:"Donar",footMade:"creado por Daniele Losapio",footDisc:"No afiliado a Cisco ni TranslatorX. Las marcas pertenecen a sus dueños.",
     fbH:"Enviar comentarios",fbL:"¿Encontraste un error? ¿Falta una función? Dímelo — así es como mejora la herramienta.",fbName:"Nombre (opcional)",fbEmail:"Email (opcional, para responderte)",fbType:"Tipo",fbT1:"Reporte de error",fbT2:"Idea / función",fbT3:"Comentario general",fbMsg:"Mensaje",fbBtn:"Enviar comentarios",fbSending:"Enviando…",fbOk:"¡Gracias! Comentario recibido. ♥",fbErr:"Ups, el envío falló. Inténtalo de nuevo o escríbeme."},
@@ -228,13 +303,17 @@ const I18N = {
     sub:"Un terminal gratuit et efficace, avec des outils intégrés pour analyser les traces SDL Cisco, syslog et la signalisation SIP.",
     dl:"Télécharger (Windows)",man:"Manuel utilisateur",explore:"Voir les outils",dlnote:"Gratuit · .exe portable · Windows 10/11 · ~2 Mo",
     toolsH:"Les outils",toolsL:"Tout dans une fenêtre. D'autres outils arrivent avec le projet — dites-moi ce qu'il vous faut.",
+    shotsH:"En action",shotsL:"Écrans avec données d'exemple — vos traces restent sur votre PC.",shot1:"Vérification du certificat TLS : CN/SAN et expiration.",shot2:"Anomalies en direct avec appelant → appelé en un coup d'œil.",shot3:"Ladder façon Wireshark + auto-diagnostic et MOS.",
     tsbN:"Nouveau",tsbH:"SBC Health",tsbP:"Diagnostic de trunk vendor-neutral : test SIP OPTIONS, vérification du certificat et de l'expiration TLS, recherche DNS SRV/A. Fonctionne sur Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE, Asterisk.",
-    t1H:"Visionneuse Ladder SDL",t1P:"Transforme les traces SDL/SDI de Cisco CallManager en diagrammes ladder SIP clairs.",
-    t2H:"Serveur Syslog",t2P:"Collecteur syslog UDP intégré avec visualiseur en direct — sans logiciel supplémentaire.",
-    t3H:"Lancer TranslatorX",t3P:"Transfert des traces et pcaps vers TranslatorX en un clic.",
-    t4H:"SSH / Telnet",t4P:"Terminal à onglets avec dispositions enregistrées et profils de connexion rapide.",
-    t5H:"Serveur FTP / SFTP",t5P:"Démarrez un serveur de fichiers temporaire pour configs et firmware.",
-    t6H:"À venir",t6P:"Vos retours façonnent la feuille de route.",t6S:"Votez sur GitHub",
+    t1H:"SIP Ladder (PCAP & SDL)",t1P:"Transforme les PCAP et traces SDL/SDI Cisco en diagrammes ladder SIP clairs — groupés par Call-ID comme Wireshark, avec auto-diagnostic et qualité voix RTP/MOS.",
+    t2H:"Serveur Syslog",t2P:"Collecteur syslog UDP intégré avec visualiseur en direct et filtre SIP uniquement — sans logiciel supplémentaire.",
+    t3H:"Simulateur SIP & Cause Codes",t3P:"Composez et envoyez des messages SIP, traduisez les cause codes Q.850 ⇄ SIP et analysez SDP/codecs.",
+    t4H:"SSH / Telnet",t4P:"Terminal à onglets (basé sur PuTTY) avec profils de connexion rapide et analyseur de logs en direct.",
+    t5N:"Nouveau",t5H:"Console série",t5P:"Console de passerelles, SBC et routeurs via COM — intégrée dans un onglet, avec le même analyseur en direct que SSH.",
+    t6H:"Serveurs fichiers & boot",t6P:"Démarrez des serveurs FTP / SFTP / TFTP / DHCP pour transférer configs et firmware et provisionner en labo.",
+    t7H:"Net Tools",t7P:"Ping, traceroute, test de port TCP, découverte MTU et vérification NTP — tout dans un panneau.",
+    t8H:"Commandes de debug",t8P:"Un aide-mémoire par constructeur des bonnes commandes de debug/capture : Cisco CUBE/CUCM, AudioCodes, Ribbon, Teams, Asterisk et plus.",
+    t9H:"À venir",t9P:"Vos retours façonnent la feuille de route.",t9S:"Votez sur GitHub",
     donH:"Ça vous plaît ? Offrez-moi un café",donL:"LosaTermVoip est gratuit et le restera. S'il vous a sauvé un débogage nocturne, un petit don le maintient en vie.",
     donBtn:"Faire un don",footMade:"créé par Daniele Losapio",footDisc:"Non affilié à Cisco ou TranslatorX. Les marques appartiennent à leurs propriétaires.",
     fbH:"Envoyer un retour",fbL:"Un bug ? Une fonction manquante ? Dites-le-moi — c'est ainsi que l'outil s'améliore.",fbName:"Nom (facultatif)",fbEmail:"Email (facultatif, pour répondre)",fbType:"Type",fbT1:"Rapport de bug",fbT2:"Idée de fonction",fbT3:"Retour général",fbMsg:"Message",fbBtn:"Envoyer un retour",fbSending:"Envoi…",fbOk:"Merci ! Retour bien reçu. ♥",fbErr:"Oups, l'envoi a échoué. Réessayez ou écrivez-moi."},
@@ -242,13 +321,17 @@ const I18N = {
     sub:"Ein kostenloses, geradliniges Terminal mit integrierten Tools zur Analyse von Cisco-SDL-Traces, Syslog und SIP-Signalisierung.",
     dl:"Download (Windows)",man:"Handbuch",explore:"Tools ansehen",dlnote:"Kostenlos · Portable .exe · Windows 10/11 · ~2 MB",
     toolsH:"Die Tools",toolsL:"Alles in einem Fenster. Mehr Tools kommen mit dem Projekt — sag mir, was du brauchst.",
+    shotsH:"In Aktion",shotsL:"Ansichten mit Beispieldaten — deine Traces verlassen den PC nicht.",shot1:"TLS-Zertifikatsprüfung: CN/SAN und Ablauf.",shot2:"Live-Anomalien mit Anrufer → Angerufenem auf einen Blick.",shot3:"Wireshark-ähnlicher Ladder + Auto-Diagnose & MOS.",
     tsbN:"Neu",tsbH:"SBC Health",tsbP:"Vendor-neutrale Trunk-Diagnose: SIP-OPTIONS-Test, TLS-Zertifikat- und Ablaufprüfung, DNS-SRV/A-Lookup. Funktioniert mit Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE, Asterisk.",
-    t1H:"SDL Ladder Viewer",t1P:"Verwandelt Cisco-CallManager-SDL/SDI-Traces in klare SIP-Ladder-Diagramme.",
-    t2H:"Syslog-Server",t2P:"Integrierter UDP-Syslog-Collector mit Live-Viewer — ohne Zusatzsoftware.",
-    t3H:"TranslatorX-Start",t3P:"Traces und Pcaps mit einem Klick an TranslatorX übergeben.",
-    t4H:"SSH / Telnet",t4P:"Terminal mit Tabs, gespeicherten Layouts und Quick-Connect-Profilen.",
-    t5H:"FTP- / SFTP-Server",t5P:"Temporären Dateiserver für Configs und Firmware starten.",
-    t6H:"Mehr in Arbeit",t6P:"Dein Feedback bestimmt die Roadmap.",t6S:"Auf GitHub abstimmen",
+    t1H:"SIP-Ladder (PCAP & SDL)",t1P:"Verwandelt PCAPs und Cisco-SDL/SDI-Traces in klare SIP-Ladder-Diagramme — pro Call-ID gruppiert wie Wireshark, mit Auto-Diagnose und RTP/MOS-Sprachqualität.",
+    t2H:"Syslog-Server",t2P:"Integrierter UDP-Syslog-Collector mit Live-Viewer und Nur-SIP-Filter — ohne Zusatzsoftware.",
+    t3H:"SIP-Simulator & Cause Codes",t3P:"SIP-Nachrichten erstellen und senden, Q.850 ⇄ SIP-Cause-Codes übersetzen und SDP/Codecs analysieren.",
+    t4H:"SSH / Telnet",t4P:"Terminal mit Tabs (PuTTY-basiert), Quick-Connect-Profilen und Live-Log-Analyzer.",
+    t5N:"Neu",t5H:"Serielle Konsole",t5P:"Konsole für Gateways, SBCs und Router über COM — in einem Tab eingebettet, mit demselben Live-Analyzer wie SSH.",
+    t6H:"Datei- & Boot-Server",t6P:"FTP- / SFTP- / TFTP- / DHCP-Server für Config- und Firmware-Transfers und Lab-Provisionierung starten.",
+    t7H:"Net Tools",t7P:"Ping, Traceroute, TCP-Port-Check, MTU-Discovery und NTP-Check — alles in einem Panel.",
+    t8H:"Debug-Befehle",t8P:"Ein herstellerspezifischer Spickzettel der richtigen Debug-/Capture-Befehle: Cisco CUBE/CUCM, AudioCodes, Ribbon, Teams, Asterisk und mehr.",
+    t9H:"Mehr in Arbeit",t9P:"Dein Feedback bestimmt die Roadmap.",t9S:"Auf GitHub abstimmen",
     donH:"Gefällt es dir? Spendier mir einen Kaffee",donL:"LosaTermVoip ist kostenlos und bleibt es. Wenn es dir eine nächtliche Debug-Session erspart hat, hält eine kleine Spende es am Leben.",
     donBtn:"Spenden",footMade:"erstellt von Daniele Losapio",footDisc:"Nicht mit Cisco oder TranslatorX verbunden. Marken gehören ihren Eigentümern.",
     fbH:"Feedback senden",fbL:"Einen Bug gefunden? Eine Funktion fehlt? Sag es mir — so wird das Tool besser.",fbName:"Name (optional)",fbEmail:"E-Mail (optional, für eine Antwort)",fbType:"Art",fbT1:"Fehlerbericht",fbT2:"Funktionsidee",fbT3:"Allgemeines Feedback",fbMsg:"Nachricht",fbBtn:"Feedback senden",fbSending:"Senden…",fbOk:"Danke! Feedback erhalten. ♥",fbErr:"Hoppla, Senden fehlgeschlagen. Bitte erneut versuchen oder mailen."}

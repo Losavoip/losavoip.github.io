@@ -365,9 +365,13 @@ const FORMSPREE_ENDPOINT = "https://formspree.io/f/xnjyrnwd";
 // Manual already wired to the file shipped next to this page:
 document.getElementById("manual").href     = "LosaTermVoip_Manuale.html";
 document.getElementById("manualFoot").href = "LosaTermVoip_Manuale.html";
-// Fill these in when ready:
-document.getElementById("download").href = "LosaTermVoip_v1.1.zip";
-document.getElementById("gh").href       = "https://github.com/losavoip";
+// Download via GitHub Release (così i download vengono CONTATI da GitHub):
+document.getElementById("download").href = "https://github.com/Losavoip/losatermvoip/releases/download/v1.1/LosaTermVoip_v1.1.zip";
+document.getElementById("download").addEventListener("click", function(){
+  if (window.goatcounter && window.goatcounter.count)
+    window.goatcounter.count({ path:"download-v1.1", title:"Download", event:true });
+});
+document.getElementById("gh").href       = "https://github.com/Losavoip/losatermvoip";
 
 /* ====== FEEDBACK FORM (AJAX to Formspree) ====== */
 const fbForm=document.getElementById("fbForm");
@@ -390,5 +394,12 @@ fbForm.addEventListener("submit",async e=>{
   btn.disabled=false; btn.style.opacity="1"; btn.querySelector("span").textContent=t.fbBtn;
 });
 </script>
+
+<!-- ===== Analytics privacy-friendly (GoatCounter) — niente cookie, GDPR-ok =====
+     Registrati gratis su https://www.goatcounter.com/ scegliendo ESATTAMENTE il codice "losavoip"
+     (così questo snippet è già pronto). Se "losavoip" è occupato, scegline un altro e sostituiscilo qui.
+     Dashboard: https://losavoip.goatcounter.com  → visite, paesi, referrer + evento "download-v1.1". -->
+<script data-goatcounter="https://losavoip.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

@@ -45,19 +45,18 @@
 
   /* terminal mock */
   .term{max-width:680px;margin:46px auto 0;background:#0a0d12;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;text-align:left}
-  .term .bar{display:flex;gap:7px;padding:11px 14px;background:#11161e;border-bottom:1px solid var(--border)}
-  .term .bar span{width:11px;height:11px;border-radius:50%}
-  .term .bar .r{background:#ff5f56}.term .bar .y{background:#ffbd2e}.term .bar .g{background:#27c93f}
+  .term .bar{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:#11161e;border-bottom:1px solid var(--border)}
+  .term .bar .t{font-size:.74rem;color:var(--muted);font-weight:600}
+  .term .bar .wctl{font-family:Consolas,monospace;color:var(--muted);letter-spacing:4px;font-size:.95rem}
   .term pre{padding:16px 18px;font-family:'Cascadia Code',Consolas,'Courier New',monospace;font-size:.86rem;color:#cdd6e0;overflow-x:auto}
   .term .c-g{color:var(--accent)}.term .c-b{color:var(--accent2)}.term .c-m{color:var(--muted)}
 
   /* SCREENSHOTS GALLERY */
   .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;margin-top:40px}
   .shot{background:#0a0d12;border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;text-align:left}
-  .shot .bar{display:flex;align-items:center;gap:7px;padding:9px 12px;background:#11161e;border-bottom:1px solid var(--border)}
-  .shot .bar span{width:10px;height:10px;border-radius:50%}
-  .shot .bar .r{background:#ff5f56}.shot .bar .y{background:#ffbd2e}.shot .bar .g{background:#27c93f}
-  .shot .bar .t{margin-left:6px;font-size:.72rem;color:var(--muted);font-weight:600}
+  .shot .bar{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;background:#11161e;border-bottom:1px solid var(--border)}
+  .shot .bar .t{font-size:.72rem;color:var(--muted);font-weight:600}
+  .shot .bar .wctl{font-family:Consolas,monospace;color:var(--muted);letter-spacing:3px;font-size:.78rem}
   .shot pre{padding:14px 16px;margin:0;font-family:'Cascadia Code',Consolas,'Courier New',monospace;font-size:.72rem;line-height:1.55;color:#cdd6e0;overflow-x:auto;white-space:pre}
   .shot .cap{padding:10px 14px;border-top:1px solid var(--border);font-size:.82rem;color:var(--muted)}
   .cg{color:var(--accent)}.cb{color:var(--accent2)}.cm{color:var(--muted)}.cy{color:#ffbd2e}.cr{color:#ff6b81}
@@ -107,11 +106,8 @@
 <nav>
   <div class="logo">Losa<span class="dot">Term</span>Voip</div>
   <div class="lang" id="lang">
-    <button data-l="it">IT</button>
     <button data-l="en">EN</button>
-    <button data-l="es">ES</button>
-    <button data-l="fr">FR</button>
-    <button data-l="de">DE</button>
+    <button data-l="it">IT</button>
   </div>
 </nav>
 
@@ -127,7 +123,7 @@
   <p class="note" data-t="dlnote">Free · Portable .exe · Windows 10/11 · ~2 MB</p>
 
   <div class="term">
-    <div class="bar"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+    <div class="bar"><span class="t">LosaTerm · Voip Terminal</span><span class="wctl">&#8211; &#9633; &#10005;</span></div>
 <pre><span class="c-m"># LosaTermVoip — session</span>
 <span class="c-g">losa&gt;</span> open trace SDL001_100_000123.txt
 <span class="c-b">[ok]</span> parsed 4218 lines · 37 SIP messages
@@ -161,31 +157,31 @@
   <div class="gallery">
 
     <div class="shot">
-      <div class="bar"><span class="r"></span><span class="y"></span><span class="g"></span><span class="t">SBC Health — TLS / Certificate</span></div>
+      <div class="bar"><span class="t">SBC Health — TLS / Certificate</span><span class="wctl">&#8211; &#9633; &#10005;</span></div>
 <pre><span class="cb">🔒</span> sbc.example.com:5061
-TLS negoziato : <span class="cg">Tls12</span>
-Cifratura     : Aes256 256 bit
+TLS negotiated : <span class="cg">Tls12</span>
+Cipher         : Aes256 256 bit
 ──────────────────────────────
-Soggetto (CN) : sbc.example.com
-SAN           : sbc.example.com, sip.example.com
-Emittente     : CN=Example Root CA
-Valido fino   : 12/03/2026  <span class="cy">⚠ scade tra 24 giorni</span></pre>
+Subject (CN)   : sbc.example.com
+SAN            : sbc.example.com, sip.example.com
+Issuer         : CN=Example Root CA
+Valid until    : 2026-03-12  <span class="cy">⚠ expires in 24 days</span></pre>
       <div class="cap" data-t="shot1">TLS certificate check: CN/SAN and expiry.</div>
     </div>
 
     <div class="shot">
-      <div class="bar"><span class="r"></span><span class="y"></span><span class="g"></span><span class="t">Live SSH analyzer</span></div>
-<pre>Ora       Sev.    Regola            Linea
-14:03:40  <span class="cg">INFO</span>    INVITE entrante   👤 <span class="cb">1001 → 2002</span>
+      <div class="bar"><span class="t">Live SSH analyzer</span><span class="wctl">&#8211; &#9633; &#10005;</span></div>
+<pre>Time      Sev.    Rule              Line
+14:03:40  <span class="cg">INFO</span>    Incoming INVITE   👤 <span class="cb">1001 → 2002</span>
 14:03:41  <span class="cg">INFO</span>    180 Ringing       👤 1001 → 2002
 14:03:42  <span class="cg">INFO</span>    200 OK            👤 1001 → 2002
-14:03:55  <span class="cy">AVVISO</span>  488 Not Accept.   👤 1001 → 2002
+14:03:55  <span class="cy">WARN</span>    488 Not Accept.   👤 1001 → 2002
                                     <span class="cr">↳ codec mismatch</span></pre>
       <div class="cap" data-t="shot2">Live anomalies with caller → callee at a glance.</div>
     </div>
 
     <div class="shot">
-      <div class="bar"><span class="r"></span><span class="y"></span><span class="g"></span><span class="t">PCAP — SIP Ladder</span></div>
+      <div class="bar"><span class="t">PCAP — SIP Ladder</span><span class="wctl">&#8211; &#9633; &#10005;</span></div>
 <pre>192.0.2.10            198.51.100.5
    │  <span class="cg">INVITE</span> ───────────▶ │
    │  100 Trying ◀─────── │
@@ -195,11 +191,45 @@ Valido fino   : 12/03/2026  <span class="cy">⚠ scade tra 24 giorni</span></pre
    │  <span class="cg">RTP g711U ▶ 1731 pkt</span>│
    │  BYE ──────────────▶ │
 
-<span class="cm">══ Diagnosi automatica ══</span>
-<span class="cg">✓</span> Connessa (200) + BYE
-♪ Ringback locale (180)
-MOS stim.: <span class="cg">4.2</span> (buono)</pre>
+<span class="cm">══ Auto-diagnosis ══</span>
+<span class="cg">✓</span> Connected (200) + BYE
+♪ Local ringback (180)
+Est. MOS: <span class="cg">4.2</span> (good)</pre>
       <div class="cap" data-t="shot3">Wireshark-like ladder + auto-diagnosis &amp; MOS.</div>
+    </div>
+
+    <div class="shot">
+      <div class="bar"><span class="t">SIP Health Check — 1 click</span><span class="wctl">&#8211; &#9633; &#10005;</span></div>
+<pre><span class="cm">══ SIP HEALTH CHECK — example.com ══</span>
+<span class="cg">✅</span> SRV _sips._tcp → sbc.example.com:5061
+<span class="cg">✅</span> TLS <span class="cg">Tls12</span> · certificate valid 47 days
+<span class="cy">⚠</span> Hostname does not match the SAN
+<span class="cg">✅</span> OPTIONS <span class="cb">200 OK</span> (18 ms) trunk up
+<span class="cm">══ Score: 85/100 — GOOD ══</span></pre>
+      <div class="cap" data-t="shot4">One-click health check with a 0-100 score.</div>
+    </div>
+
+    <div class="shot">
+      <div class="bar"><span class="t">DNS VoIP Analyzer</span><span class="wctl">&#8211; &#9633; &#10005;</span></div>
+<pre>┌─ NAPTR (RFC 3263)
+│  "SIPS+D2T" → <span class="cb">SIP over TLS (_sips._tcp)</span>
+┌─ SRV
+│  _sips._tcp → sbc.example.com:5061
+┌─ A / AAAA
+│  A: 198.51.100.5     AAAA: — (no IPv6)
+<span class="cg">✅</span> NAPTR + SRV: full auto-discovery</pre>
+      <div class="cap" data-t="shot5">DNS NAPTR/SRV/A check with interpretation.</div>
+    </div>
+
+    <div class="shot">
+      <div class="bar"><span class="t">STUN — NAT type</span><span class="wctl">&#8211; &#9633; &#10005;</span></div>
+<pre>Local IP        : 10.0.0.5
+Reflexive via A : <span class="cb">203.0.113.7:50012</span>
+Reflexive via B : 203.0.113.7:50012
+──────────────────────────────
+<span class="cg">→ NON-SYMMETRIC NAT (cone)</span>
+RTP OK with STUN/keepalive ✅</pre>
+      <div class="cap" data-t="shot6">NAT type: symmetric vs cone (RTP impact).</div>
     </div>
 
   </div>
@@ -249,7 +279,7 @@ const I18N = {
     sub:"Un terminale gratuito e diretto, con strumenti integrati per analizzare trace SDL Cisco, syslog e segnalazione SIP.",
     dl:"Scarica (Windows)",man:"Manuale utente",explore:"Esplora gli strumenti",dlnote:"Gratis · .exe portable · Windows 10/11 · ~2 MB",
     toolsH:"Gli strumenti",toolsL:"Tutto in una finestra. Nuovi strumenti arrivano col progetto — dimmi cosa ti serve.",
-    shotsH:"In azione",shotsL:"Schermate del tool con dati di esempio — le tue trace restano sul tuo PC.",shot1:"Controllo certificato TLS: CN/SAN e scadenza.",shot2:"Anomalie live con chiamante → chiamato a colpo d'occhio.",shot3:"Ladder come Wireshark + auto-diagnosi e MOS.",
+    shotsH:"In azione",shotsL:"Schermate del tool con dati di esempio — le tue trace restano sul tuo PC.",shot1:"Controllo certificato TLS: CN/SAN e scadenza.",shot2:"Anomalie live con chiamante → chiamato a colpo d'occhio.",shot3:"Ladder come Wireshark + auto-diagnosi e MOS.",shot4:"Diagnosi 1-click con punteggio 0-100.",shot5:"Controllo DNS NAPTR/SRV/A con interpretazione.",shot6:"Tipo NAT: simmetrico vs cone (impatto RTP).",
     tsbN:"Novità",tsbH:"SBC Health",tsbP:"Diagnostica trunk vendor-neutral: test SIP OPTIONS, controllo certificato e scadenza TLS, lookup DNS SRV/A. Funziona su Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE, Asterisk.",
     t1H:"SIP Ladder (PCAP & SDL)",t1P:"Trasforma PCAP e trace SDL/SDI Cisco in diagrammi ladder SIP puliti — raggruppati per Call-ID come Wireshark, con auto-diagnosi e qualità voce RTP/MOS.",
     t2H:"Server Syslog",t2P:"Collector syslog UDP integrato con viewer live e filtro solo-SIP — senza software extra.",
@@ -267,7 +297,7 @@ const I18N = {
     sub:"A free, no-nonsense terminal with built-in tools for analyzing Cisco SDL traces, syslog and SIP signaling.",
     dl:"Download (Windows)",man:"User manual",explore:"Explore the tools",dlnote:"Free · Portable .exe · Windows 10/11 · ~2 MB",
     toolsH:"The toolkit",toolsL:"Everything in one window. More tools land as the project grows — tell me what you need.",
-    shotsH:"See it in action",shotsL:"Tool screens with sample data — your traces never leave your PC.",shot1:"TLS certificate check: CN/SAN and expiry.",shot2:"Live anomalies with caller → callee at a glance.",shot3:"Wireshark-like ladder + auto-diagnosis & MOS.",
+    shotsH:"See it in action",shotsL:"Tool screens with sample data — your traces never leave your PC.",shot1:"TLS certificate check: CN/SAN and expiry.",shot2:"Live anomalies with caller → callee at a glance.",shot3:"Wireshark-like ladder + auto-diagnosis & MOS.",shot4:"One-click health check with a 0-100 score.",shot5:"DNS NAPTR/SRV/A check with interpretation.",shot6:"NAT type: symmetric vs cone (RTP impact).",
     tsbN:"New",tsbH:"SBC Health",tsbP:"Vendor-neutral trunk diagnostics: SIP OPTIONS test, TLS certificate & expiry check, DNS SRV/A lookup. Works on Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE, Asterisk.",
     t1H:"SIP Ladder (PCAP & SDL)",t1P:"Turn PCAPs and Cisco SDL/SDI traces into clean SIP ladder diagrams — grouped per Call-ID like Wireshark, with auto-diagnosis and RTP/MOS voice quality.",
     t2H:"Syslog Server",t2P:"Built-in UDP syslog collector with a live viewer and SIP-only filter — no extra software.",
@@ -285,7 +315,7 @@ const I18N = {
     sub:"Una terminal gratuita y directa, con herramientas integradas para analizar trazas SDL de Cisco, syslog y señalización SIP.",
     dl:"Descargar (Windows)",man:"Manual de usuario",explore:"Ver las herramientas",dlnote:"Gratis · .exe portable · Windows 10/11 · ~2 MB",
     toolsH:"Las herramientas",toolsL:"Todo en una ventana. Más herramientas llegan con el proyecto — dime qué necesitas.",
-    shotsH:"En acción",shotsL:"Pantallas con datos de ejemplo — tus trazas no salen de tu PC.",shot1:"Comprobación de certificado TLS: CN/SAN y caducidad.",shot2:"Anomalías en vivo con llamante → llamado de un vistazo.",shot3:"Ladder estilo Wireshark + autodiagnóstico y MOS.",
+    shotsH:"En acción",shotsL:"Pantallas con datos de ejemplo — tus trazas no salen de tu PC.",shot1:"Comprobación de certificado TLS: CN/SAN y caducidad.",shot2:"Anomalías en vivo con llamante → llamado de un vistazo.",shot3:"Ladder estilo Wireshark + autodiagnóstico y MOS.",shot4:"Diagnóstico 1-click con puntuación 0-100.",shot5:"Comprobación DNS NAPTR/SRV/A con interpretación.",shot6:"Tipo de NAT: simétrico vs cone (impacto RTP).",
     tsbN:"Nuevo",tsbH:"SBC Health",tsbP:"Diagnóstico de trunk vendor-neutral: test SIP OPTIONS, comprobación de certificado y caducidad TLS, búsqueda DNS SRV/A. Funciona en Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE, Asterisk.",
     t1H:"SIP Ladder (PCAP y SDL)",t1P:"Convierte PCAPs y trazas SDL/SDI de Cisco en diagramas ladder SIP claros — agrupados por Call-ID como Wireshark, con autodiagnóstico y calidad de voz RTP/MOS.",
     t2H:"Servidor Syslog",t2P:"Colector syslog UDP integrado con visor en vivo y filtro solo-SIP — sin software extra.",
@@ -303,7 +333,7 @@ const I18N = {
     sub:"Un terminal gratuit et efficace, avec des outils intégrés pour analyser les traces SDL Cisco, syslog et la signalisation SIP.",
     dl:"Télécharger (Windows)",man:"Manuel utilisateur",explore:"Voir les outils",dlnote:"Gratuit · .exe portable · Windows 10/11 · ~2 Mo",
     toolsH:"Les outils",toolsL:"Tout dans une fenêtre. D'autres outils arrivent avec le projet — dites-moi ce qu'il vous faut.",
-    shotsH:"En action",shotsL:"Écrans avec données d'exemple — vos traces restent sur votre PC.",shot1:"Vérification du certificat TLS : CN/SAN et expiration.",shot2:"Anomalies en direct avec appelant → appelé en un coup d'œil.",shot3:"Ladder façon Wireshark + auto-diagnostic et MOS.",
+    shotsH:"En action",shotsL:"Écrans avec données d'exemple — vos traces restent sur votre PC.",shot1:"Vérification du certificat TLS : CN/SAN et expiration.",shot2:"Anomalies en direct avec appelant → appelé en un coup d'œil.",shot3:"Ladder façon Wireshark + auto-diagnostic et MOS.",shot4:"Diagnostic en 1 clic avec score 0-100.",shot5:"Contrôle DNS NAPTR/SRV/A avec interprétation.",shot6:"Type de NAT : symétrique vs cone (impact RTP).",
     tsbN:"Nouveau",tsbH:"SBC Health",tsbP:"Diagnostic de trunk vendor-neutral : test SIP OPTIONS, vérification du certificat et de l'expiration TLS, recherche DNS SRV/A. Fonctionne sur Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE, Asterisk.",
     t1H:"SIP Ladder (PCAP & SDL)",t1P:"Transforme les PCAP et traces SDL/SDI Cisco en diagrammes ladder SIP clairs — groupés par Call-ID comme Wireshark, avec auto-diagnostic et qualité voix RTP/MOS.",
     t2H:"Serveur Syslog",t2P:"Collecteur syslog UDP intégré avec visualiseur en direct et filtre SIP uniquement — sans logiciel supplémentaire.",
@@ -321,7 +351,7 @@ const I18N = {
     sub:"Ein kostenloses, geradliniges Terminal mit integrierten Tools zur Analyse von Cisco-SDL-Traces, Syslog und SIP-Signalisierung.",
     dl:"Download (Windows)",man:"Handbuch",explore:"Tools ansehen",dlnote:"Kostenlos · Portable .exe · Windows 10/11 · ~2 MB",
     toolsH:"Die Tools",toolsL:"Alles in einem Fenster. Mehr Tools kommen mit dem Projekt — sag mir, was du brauchst.",
-    shotsH:"In Aktion",shotsL:"Ansichten mit Beispieldaten — deine Traces verlassen den PC nicht.",shot1:"TLS-Zertifikatsprüfung: CN/SAN und Ablauf.",shot2:"Live-Anomalien mit Anrufer → Angerufenem auf einen Blick.",shot3:"Wireshark-ähnlicher Ladder + Auto-Diagnose & MOS.",
+    shotsH:"In Aktion",shotsL:"Ansichten mit Beispieldaten — deine Traces verlassen den PC nicht.",shot1:"TLS-Zertifikatsprüfung: CN/SAN und Ablauf.",shot2:"Live-Anomalien mit Anrufer → Angerufenem auf einen Blick.",shot3:"Wireshark-ähnlicher Ladder + Auto-Diagnose & MOS.",shot4:"1-Klick-Diagnose mit Score 0-100.",shot5:"DNS NAPTR/SRV/A-Prüfung mit Interpretation.",shot6:"NAT-Typ: symmetrisch vs Cone (RTP-Auswirkung).",
     tsbN:"Neu",tsbH:"SBC Health",tsbP:"Vendor-neutrale Trunk-Diagnose: SIP-OPTIONS-Test, TLS-Zertifikat- und Ablaufprüfung, DNS-SRV/A-Lookup. Funktioniert mit Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE, Asterisk.",
     t1H:"SIP-Ladder (PCAP & SDL)",t1P:"Verwandelt PCAPs und Cisco-SDL/SDI-Traces in klare SIP-Ladder-Diagramme — pro Call-ID gruppiert wie Wireshark, mit Auto-Diagnose und RTP/MOS-Sprachqualität.",
     t2H:"Syslog-Server",t2P:"Integrierter UDP-Syslog-Collector mit Live-Viewer und Nur-SIP-Filter — ohne Zusatzsoftware.",
@@ -354,7 +384,7 @@ function setLang(l){
 // 1) saved choice  2) browser language  3) english
 const saved=(()=>{try{return localStorage.getItem("losa_lang");}catch(e){return null;}})();
 const browser=(navigator.language||"en").slice(0,2).toLowerCase();
-setLang(saved || (I18N[browser]?browser:"en"));
+setLang(saved || (browser==="it"?"it":"en"));   // solo IT/EN, default Inglese
 
 document.getElementById("lang").addEventListener("click",e=>{
   if(e.target.dataset.l) setLang(e.target.dataset.l);

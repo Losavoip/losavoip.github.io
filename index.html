@@ -138,6 +138,7 @@
   <h2 data-t="toolsH">The toolkit</h2>
   <p class="lead" data-t="toolsL">Everything in one window. More tools land as the project grows — tell me what you need.</p>
   <div class="grid">
+    <div class="card flag"><span class="new" data-t="t10N">New</span><div class="ico">🩺</div><h3 data-t="t10H">1-click SIP Health Check</h3><p data-t="t10P">Enter a domain and get a full DNS → TLS/cert → SIP OPTIONS check with a 0-100 score and the exact issues. The fastest way to find why a trunk is down.</p></div>
     <div class="card flag"><span class="new" data-t="tsbN">New</span><div class="ico">🩺</div><h3 data-t="tsbH">SBC Health</h3><p data-t="tsbP">Vendor-neutral trunk diagnostics: SIP OPTIONS test, TLS certificate &amp; expiry check, DNS SRV/A lookup. Works on Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE, Asterisk.</p></div>
     <div class="card"><div class="ico">🪜</div><h3 data-t="t1H">SIP Ladder (PCAP &amp; SDL)</h3><p data-t="t1P">Turn PCAPs and Cisco SDL/SDI traces into clean SIP ladder diagrams — grouped per Call-ID like Wireshark, with auto-diagnosis and RTP/MOS voice quality.</p></div>
     <div class="card"><div class="ico">📟</div><h3 data-t="t2H">Syslog Server</h3><p data-t="t2P">Built-in UDP syslog collector with a live viewer and SIP-only filter — no extra software.</p></div>
@@ -147,6 +148,8 @@
     <div class="card"><div class="ico">📁</div><h3 data-t="t6H">File &amp; Boot Servers</h3><p data-t="t6P">Spin up FTP / SFTP / TFTP / DHCP servers for config &amp; firmware transfers and lab provisioning.</p></div>
     <div class="card"><div class="ico">🧰</div><h3 data-t="t7H">Net Tools</h3><p data-t="t7P">Ping, traceroute, TCP port check, MTU discovery and NTP check — all in one panel.</p></div>
     <div class="card"><div class="ico">📖</div><h3 data-t="t8H">Debug Commands</h3><p data-t="t8P">A per-vendor cheat-sheet of the right debug/capture commands: Cisco CUBE/CUCM, AudioCodes, Ribbon, Teams, Asterisk and more.</p></div>
+    <div class="card"><span class="new" data-t="t11N">New</span><div class="ico">🗺️</div><h3 data-t="t11H">Network Path (LLDP/CDP)</h3><p data-t="t11P">Which switch and port are you on? LLDP/CDP discovery (switch, port, VLAN, model) plus an L3 traceroute: PC → switch → gateway → core → firewall → internet.</p></div>
+    <div class="card"><div class="ico">🧰</div><h3 data-t="t12H">Full VoIP diagnostic suite</h3><p data-t="t12P">RTP player &amp; DTMF, OPTIONS monitor, DNS NAPTR/SRV, STUN &amp; NAT type, firewall check, SRTP/DTLS analyzer, SIP builder with Digest auth, provisioning viewer, SIP-over-WebSocket, traffic generator, codec/MOS calculators…</p></div>
     <div class="card"><div class="ico">✨</div><h3 data-t="t9H">More coming</h3><p data-t="t9P">Your feedback shapes the roadmap.</p><span class="soon" data-t="t9S">Vote on GitHub</span></div>
   </div>
 </section>
@@ -276,7 +279,7 @@ RTP OK with STUN/keepalive ✅</pre>
 <script>
 const I18N = {
   it:{badge:"Per ingegneri VoIP e di rete",h1a:"Un terminale pensato per il",h1b:"troubleshooting VoIP",
-    sub:"Un terminale gratuito e diretto, con strumenti integrati per analizzare trace SDL Cisco, syslog e segnalazione SIP.",
+    sub:"Un terminale gratuito e diretto, con una suite di diagnostica VoIP integrata: SIP Health Check 1-click, DNS/TLS/SRTP, RTP & MOS, LLDP/CDP, STUN/NAT e molto altro.",
     dl:"Scarica (Windows)",man:"Manuale utente",explore:"Esplora gli strumenti",dlnote:"Gratis · .exe portable · Windows 10/11 · ~2 MB",
     toolsH:"Gli strumenti",toolsL:"Tutto in una finestra. Nuovi strumenti arrivano col progetto — dimmi cosa ti serve.",
     shotsH:"In azione",shotsL:"Schermate del tool con dati di esempio — le tue trace restano sul tuo PC.",shot1:"Controllo certificato TLS: CN/SAN e scadenza.",shot2:"Anomalie live con chiamante → chiamato a colpo d'occhio.",shot3:"Ladder come Wireshark + auto-diagnosi e MOS.",shot4:"Diagnosi 1-click con punteggio 0-100.",shot5:"Controllo DNS NAPTR/SRV/A con interpretazione.",shot6:"Tipo NAT: simmetrico vs cone (impatto RTP).",
@@ -290,11 +293,14 @@ const I18N = {
     t7H:"Net Tools",t7P:"Ping, traceroute, test porta TCP, scoperta MTU e verifica NTP — tutto in un pannello.",
     t8H:"Comandi di debug",t8P:"Cheat-sheet per vendor con i comandi giusti di debug/capture: Cisco CUBE/CUCM, AudioCodes, Ribbon, Teams, Asterisk e altri.",
     t9H:"Altro in arrivo",t9P:"Il tuo feedback definisce la roadmap.",t9S:"Vota su GitHub",
+    t10N:"Novità",t10H:"SIP Health Check 1-click",t10P:"Inserisci un dominio e ottieni un check completo DNS → TLS/cert → SIP OPTIONS con punteggio 0-100 e i problemi esatti. Il modo più rapido per capire perché un trunk non va.",
+    t11N:"Novità",t11H:"Percorso di rete (LLDP/CDP)",t11P:"Su quale switch e porta sei? Discovery LLDP/CDP (switch, porta, VLAN, modello) + traceroute L3: PC → switch → gateway → core → firewall → internet.",
+    t12H:"Suite diagnostica VoIP completa",t12P:"RTP player & DTMF, OPTIONS monitor, DNS NAPTR/SRV, STUN & tipo NAT, firewall check, analizzatore SRTP/DTLS, SIP builder con Digest auth, provisioning viewer, SIP-over-WebSocket, generatore traffico, calcolatori codec/MOS…",
     donH:"Ti piace? Offrimi un caffè",donL:"LosaTermVoip è gratis e resta gratis. Se ti ha salvato un debug notturno, una piccola donazione lo tiene in vita.",
     donBtn:"Dona",footMade:"creato da Daniele Losapio",footDisc:"Non affiliato a Cisco o TranslatorX. I marchi appartengono ai rispettivi proprietari.",
     fbH:"Invia feedback",fbL:"Hai trovato un bug? Manca una funzione? Dimmelo — è così che lo strumento migliora.",fbName:"Nome (facoltativo)",fbEmail:"Email (facoltativa, per risponderti)",fbType:"Tipo",fbT1:"Segnalazione bug",fbT2:"Idea / funzione",fbT3:"Feedback generico",fbMsg:"Messaggio",fbBtn:"Invia feedback",fbSending:"Invio…",fbOk:"Grazie! Feedback ricevuto. ♥",fbErr:"Ops, invio non riuscito. Riprova o scrivimi via email."},
   en:{badge:"For VoIP & Network Engineers",h1a:"A terminal built for",h1b:"VoIP troubleshooting",
-    sub:"A free, no-nonsense terminal with built-in tools for analyzing Cisco SDL traces, syslog and SIP signaling.",
+    sub:"A free, no-nonsense terminal with a built-in VoIP diagnostic suite: 1-click SIP Health Check, DNS/TLS/SRTP, RTP & MOS, LLDP/CDP, STUN/NAT and much more.",
     dl:"Download (Windows)",man:"User manual",explore:"Explore the tools",dlnote:"Free · Portable .exe · Windows 10/11 · ~2 MB",
     toolsH:"The toolkit",toolsL:"Everything in one window. More tools land as the project grows — tell me what you need.",
     shotsH:"See it in action",shotsL:"Tool screens with sample data — your traces never leave your PC.",shot1:"TLS certificate check: CN/SAN and expiry.",shot2:"Live anomalies with caller → callee at a glance.",shot3:"Wireshark-like ladder + auto-diagnosis & MOS.",shot4:"One-click health check with a 0-100 score.",shot5:"DNS NAPTR/SRV/A check with interpretation.",shot6:"NAT type: symmetric vs cone (RTP impact).",
@@ -308,6 +314,9 @@ const I18N = {
     t7H:"Net Tools",t7P:"Ping, traceroute, TCP port check, MTU discovery and NTP check — all in one panel.",
     t8H:"Debug Commands",t8P:"A per-vendor cheat-sheet of the right debug/capture commands: Cisco CUBE/CUCM, AudioCodes, Ribbon, Teams, Asterisk and more.",
     t9H:"More coming",t9P:"Your feedback shapes the roadmap.",t9S:"Vote on GitHub",
+    t10N:"New",t10H:"1-click SIP Health Check",t10P:"Enter a domain and get a full DNS → TLS/cert → SIP OPTIONS check with a 0-100 score and the exact issues. The fastest way to find why a trunk is down.",
+    t11N:"New",t11H:"Network Path (LLDP/CDP)",t11P:"Which switch and port are you on? LLDP/CDP discovery (switch, port, VLAN, model) plus an L3 traceroute: PC → switch → gateway → core → firewall → internet.",
+    t12H:"Full VoIP diagnostic suite",t12P:"RTP player & DTMF, OPTIONS monitor, DNS NAPTR/SRV, STUN & NAT type, firewall check, SRTP/DTLS analyzer, SIP builder with Digest auth, provisioning viewer, SIP-over-WebSocket, traffic generator, codec/MOS calculators…",
     donH:"Like it? Buy me a coffee",donL:"LosaTermVoip is free and stays free. If it saved you a late-night debug session, a small donation keeps it alive.",
     donBtn:"Donate",footMade:"made by Daniele Losapio",footDisc:"Not affiliated with Cisco or TranslatorX. Trademarks belong to their owners.",
     fbH:"Send feedback",fbL:"Found a bug? Missing a feature? Tell me — this is exactly how the tool improves.",fbName:"Name (optional)",fbEmail:"Email (optional, for a reply)",fbType:"Type",fbT1:"Bug report",fbT2:"Feature idea",fbT3:"General feedback",fbMsg:"Message",fbBtn:"Send feedback",fbSending:"Sending…",fbOk:"Thanks! Feedback received. ♥",fbErr:"Oops, sending failed. Try again or email me."},

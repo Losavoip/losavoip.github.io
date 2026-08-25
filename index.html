@@ -251,6 +251,30 @@ RTP OK with STUN/keepalive ✅</pre>
       <div class="cap" data-t="shot6">NAT type: symmetric vs cone (RTP impact).</div>
     </div>
 
+    <div class="shot">
+      <div class="bar"><span class="t">Environment Check — Teams DR</span><span class="wctl">&#8211; &#9633; &#10005;</span></div>
+<pre><span class="cm">═══ Environment Check · Teams DR ═══</span>
+● sip.pstnhub.microsoft.com
+   <span class="cg">✔</span> DNS A: 52.114.75.24
+   <span class="cg">✔</span> TLS 5061: <span class="cg">Tls12</span> · cert 214d
+● sip2 <span class="cg">✔</span>   ● sip3 <span class="cg">✔</span>
+<span class="cg">✅ REACHABLE — 3/3 hubs on TLS 5061</span>
+<span class="cm">── Checklist ──</span> media 3478-3481 + 49152-53247…</pre>
+      <div class="cap" data-t="shot7">Per-vendor readiness: checks + checklist.</div>
+    </div>
+
+    <div class="shot">
+      <div class="bar"><span class="t">Call Quality Scorecard</span><span class="wctl">&#8211; &#9633; &#10005;</span></div>
+<pre><span class="cm">══ Automatic diagnosis ══</span>
+▶ 1001 → 2002   (12 msg)
+<span class="cg">✓</span> Connected (200 OK) and ended (BYE)
+📊 <span class="cb">Voice quality: 62/100</span>
+   (MOS 3.1, loss 4.8%, jitter 22ms)
+📌 <span class="cy">Degraded audio → check QoS / network path</span>
+<span class="cm">── RFC 3261 ──</span> <span class="cg">✅ 12 msg · 0 malformed</span></pre>
+      <div class="cap" data-t="shot8">0-100 voice score + one-line root cause.</div>
+    </div>
+
   </div>
 </section>
 
@@ -298,7 +322,7 @@ const I18N = {
     sub:"Un terminale gratuito e diretto, con una suite di diagnostica VoIP integrata: SIP Health Check 1-click, DNS/TLS/SRTP, RTP & MOS, LLDP/CDP, STUN/NAT e molto altro.",
     dl:"Scarica (Windows)",man:"Manuale utente",explore:"Esplora gli strumenti",dlnote:"Gratis · .exe portable · Windows 10/11 · ~2 MB",
     toolsH:"Gli strumenti",toolsL:"Tutto in una finestra. Nuovi strumenti arrivano col progetto — dimmi cosa ti serve.",
-    shotsH:"In azione",shotsL:"Schermate del tool con dati di esempio — le tue trace restano sul tuo PC.",shot1:"Controllo certificato TLS: CN/SAN e scadenza.",shot2:"Anomalie live con chiamante → chiamato a colpo d'occhio.",shot3:"Ladder come Wireshark + auto-diagnosi e MOS.",shot4:"Diagnosi 1-click con punteggio 0-100.",shot5:"Controllo DNS NAPTR/SRV/A con interpretazione.",shot6:"Tipo NAT: simmetrico vs cone (impatto RTP).",
+    shotsH:"In azione",shotsL:"Schermate del tool con dati di esempio — le tue trace restano sul tuo PC.",shot1:"Controllo certificato TLS: CN/SAN e scadenza.",shot2:"Anomalie live con chiamante → chiamato a colpo d'occhio.",shot3:"Ladder come Wireshark + auto-diagnosi e MOS.",shot4:"Diagnosi 1-click con punteggio 0-100.",shot5:"Controllo DNS NAPTR/SRV/A con interpretazione.",shot6:"Tipo NAT: simmetrico vs cone (impatto RTP).",shot7:"Readiness per vendor: check + checklist.",shot8:"Punteggio voce 0-100 + root-cause in una riga.",
     tsbN:"Novità",tsbH:"SBC Health",tsbP:"Diagnostica trunk vendor-neutral: test SIP OPTIONS, controllo certificato e scadenza TLS, lookup DNS SRV/A. Funziona su Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE, Asterisk.",
     t1H:"SIP Ladder (PCAP & SDL)",t1P:"Trasforma PCAP e trace SDL/SDI Cisco in diagrammi ladder SIP puliti — raggruppati per Call-ID come Wireshark, con auto-diagnosi, qualità voce RTP/MOS e controllo di conformità RFC 3261 per messaggio.",
     t2H:"Server Syslog",t2P:"Collector syslog UDP integrato con viewer live e filtro solo-SIP — senza software extra.",
@@ -321,7 +345,7 @@ const I18N = {
     sub:"A free, no-nonsense terminal with a built-in VoIP diagnostic suite: 1-click SIP Health Check, DNS/TLS/SRTP, RTP & MOS, LLDP/CDP, STUN/NAT and much more.",
     dl:"Download (Windows)",man:"User manual",explore:"Explore the tools",dlnote:"Free · Portable .exe · Windows 10/11 · ~2 MB",
     toolsH:"The toolkit",toolsL:"Everything in one window. More tools land as the project grows — tell me what you need.",
-    shotsH:"See it in action",shotsL:"Tool screens with sample data — your traces never leave your PC.",shot1:"TLS certificate check: CN/SAN and expiry.",shot2:"Live anomalies with caller → callee at a glance.",shot3:"Wireshark-like ladder + auto-diagnosis & MOS.",shot4:"One-click health check with a 0-100 score.",shot5:"DNS NAPTR/SRV/A check with interpretation.",shot6:"NAT type: symmetric vs cone (RTP impact).",
+    shotsH:"See it in action",shotsL:"Tool screens with sample data — your traces never leave your PC.",shot1:"TLS certificate check: CN/SAN and expiry.",shot2:"Live anomalies with caller → callee at a glance.",shot3:"Wireshark-like ladder + auto-diagnosis & MOS.",shot4:"One-click health check with a 0-100 score.",shot5:"DNS NAPTR/SRV/A check with interpretation.",shot6:"NAT type: symmetric vs cone (RTP impact).",shot7:"Per-vendor readiness: checks + checklist.",shot8:"0-100 voice score + one-line root cause.",
     tsbN:"New",tsbH:"SBC Health",tsbP:"Vendor-neutral trunk diagnostics: SIP OPTIONS test, TLS certificate & expiry check, DNS SRV/A lookup. Works on Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE, Asterisk.",
     t1H:"SIP Ladder (PCAP & SDL)",t1P:"Turn PCAPs and Cisco SDL/SDI traces into clean SIP ladder diagrams — grouped per Call-ID like Wireshark, with auto-diagnosis, RTP/MOS voice quality and per-message RFC 3261 conformance checks.",
     t2H:"Syslog Server",t2P:"Built-in UDP syslog collector with a live viewer and SIP-only filter — no extra software.",

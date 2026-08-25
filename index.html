@@ -157,6 +157,7 @@
     <div class="card flag"><span class="new" data-t="tsbN">New</span><div class="ico">🩺</div><h3 data-t="tsbH">SBC Health</h3><p data-t="tsbP">Vendor-neutral trunk diagnostics: SIP OPTIONS test, TLS certificate &amp; expiry check, DNS SRV/A lookup. Works on Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE, Asterisk.</p></div>
     <div class="card"><div class="ico">🪜</div><h3 data-t="t1H">SIP Ladder (PCAP &amp; SDL)</h3><p data-t="t1P">Turn PCAPs and Cisco SDL/SDI traces into clean SIP ladder diagrams — grouped per Call-ID like Wireshark, with auto-diagnosis, RTP/MOS voice quality and per-message RFC 3261 conformance checks.</p></div>
     <div class="card flag"><span class="new" data-t="tcqN">New</span><div class="ico">📊</div><h3 data-t="tcqH">Call Quality Scorecard</h3><p data-t="tcqP">Every captured call gets a 0-100 voice-quality score (MOS, packet loss, jitter) and a one-line root cause — one-way audio, degraded audio, codec mismatch — right in the call diagnosis. The "wow" that goes straight into a ticket.</p></div>
+    <div class="card flag"><span class="new" data-t="tnrN">New</span><div class="ico">🧾</div><h3 data-t="tnrH">Network Readiness Report</h3><p data-t="tnrP">Tick the checks you need — local IPs &amp; interfaces, system DNS &amp; proxy, public IP + NAT type, target DNS/SIP reachability, TLS certificate, traceroute, vendor checklist — and run them all into one branded HTML report. A full environment + target assessment in one click.</p></div>
     <div class="card"><div class="ico">📟</div><h3 data-t="t2H">Syslog Server</h3><p data-t="t2P">Built-in UDP syslog collector with a live viewer and SIP-only filter — no extra software.</p></div>
     <div class="card"><div class="ico">🔀</div><h3 data-t="t3H">SIP Simulator &amp; Cause Codes</h3><p data-t="t3P">Craft and send SIP messages, translate Q.850 ⇄ SIP cause codes, and analyze SDP/codecs.</p></div>
     <div class="card"><div class="ico">🖥️</div><h3 data-t="t4H">SSH / Telnet</h3><p data-t="t4P">Tabbed PuTTY-based terminal with quick-connect profiles and a live log analyzer.</p></div>
@@ -275,6 +276,20 @@ RTP OK with STUN/keepalive ✅</pre>
       <div class="cap" data-t="shot8">0-100 voice score + one-line root cause.</div>
     </div>
 
+    <div class="shot">
+      <div class="bar"><span class="t">Network Readiness Report</span><span class="wctl">&#8211; &#9633; &#10005;</span></div>
+<pre><span class="cm">═══ Network Readiness Report ═══</span>
+<span class="cb">•</span> IP locali / interfacce
+   Ethernet: 10.20.98.166  → gw 10.20.98.1
+<span class="cb">•</span> IP pubblico + NAT
+   Reflexive: 93.51.x.x:41xxx
+   <span class="cy">NAT: cone — RTP ok con STUN/keepalive</span>
+<span class="cg">✅</span> Certificato TLS 5061  (TLS 1.2, 214d)
+<span class="cg">✅</span> Raggiungibilità SIP  (OPTIONS 200 OK)
+<span class="cm">════</span> <span class="cg">6 ✅</span> · <span class="cy">1 ⚠️</span> · 0 ⛔</pre>
+      <div class="cap" data-t="shot9">Check a scelta → un unico report ambiente+target.</div>
+    </div>
+
   </div>
 </section>
 
@@ -322,7 +337,7 @@ const I18N = {
     sub:"Un terminale gratuito e diretto, con una suite di diagnostica VoIP integrata: SIP Health Check 1-click, DNS/TLS/SRTP, RTP & MOS, LLDP/CDP, STUN/NAT e molto altro.",
     dl:"Scarica (Windows)",man:"Manuale utente",explore:"Esplora gli strumenti",dlnote:"Gratis · .exe portable · Windows 10/11 · ~2 MB",
     toolsH:"Gli strumenti",toolsL:"Tutto in una finestra. Nuovi strumenti arrivano col progetto — dimmi cosa ti serve.",
-    shotsH:"In azione",shotsL:"Schermate del tool con dati di esempio — le tue trace restano sul tuo PC.",shot1:"Controllo certificato TLS: CN/SAN e scadenza.",shot2:"Anomalie live con chiamante → chiamato a colpo d'occhio.",shot3:"Ladder come Wireshark + auto-diagnosi e MOS.",shot4:"Diagnosi 1-click con punteggio 0-100.",shot5:"Controllo DNS NAPTR/SRV/A con interpretazione.",shot6:"Tipo NAT: simmetrico vs cone (impatto RTP).",shot7:"Readiness per vendor: check + checklist.",shot8:"Punteggio voce 0-100 + root-cause in una riga.",
+    shotsH:"In azione",shotsL:"Schermate del tool con dati di esempio — le tue trace restano sul tuo PC.",shot1:"Controllo certificato TLS: CN/SAN e scadenza.",shot2:"Anomalie live con chiamante → chiamato a colpo d'occhio.",shot3:"Ladder come Wireshark + auto-diagnosi e MOS.",shot4:"Diagnosi 1-click con punteggio 0-100.",shot5:"Controllo DNS NAPTR/SRV/A con interpretazione.",shot6:"Tipo NAT: simmetrico vs cone (impatto RTP).",shot7:"Readiness per vendor: check + checklist.",shot8:"Punteggio voce 0-100 + root-cause in una riga.",shot9:"Check a scelta → un unico report ambiente+target.",
     tsbN:"Novità",tsbH:"SBC Health",tsbP:"Diagnostica trunk vendor-neutral: test SIP OPTIONS, controllo certificato e scadenza TLS, lookup DNS SRV/A. Funziona su Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE, Asterisk.",
     t1H:"SIP Ladder (PCAP & SDL)",t1P:"Trasforma PCAP e trace SDL/SDI Cisco in diagrammi ladder SIP puliti — raggruppati per Call-ID come Wireshark, con auto-diagnosi, qualità voce RTP/MOS e controllo di conformità RFC 3261 per messaggio.",
     t2H:"Server Syslog",t2P:"Collector syslog UDP integrato con viewer live e filtro solo-SIP — senza software extra.",
@@ -336,6 +351,7 @@ const I18N = {
     t10N:"Novità",t10H:"SIP Health Check 1-click",t10P:"Inserisci un dominio e ottieni un check completo DNS → TLS/cert → SIP OPTIONS con punteggio 0-100 e i problemi esatti. Il modo più rapido per capire perché un trunk non va.",
     tenvN:"Novità",tenvH:"Environment Check (per vendor)",tenvP:"Scegli il vendor — Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE/CUCM, Asterisk, FreeSWITCH, Alcatel, Yeastar, 3CX — e ottieni check automatici DNS/TLS/OPTIONS più una checklist di readiness e una cheat-sheet di comandi specifiche del vendor.",
     tcqN:"Novità",tcqH:"Call Quality Scorecard",tcqP:"Ogni chiamata catturata ottiene un punteggio qualità voce 0-100 (MOS, perdita pacchetti, jitter) e un root-cause in una riga — audio monodirezionale, audio degradato, codec mismatch — direttamente nella diagnosi. Il 'wow' pronto da allegare a un ticket.",
+    tnrN:"Novità",tnrH:"Network Readiness Report",tnrP:"Spunta i check che ti servono — IP e interfacce locali, DNS e proxy di sistema, IP pubblico + tipo NAT, raggiungibilità DNS/SIP del target, certificato TLS, traceroute, checklist vendor — ed esegui tutto in un unico report HTML brandizzato. Assessment ambiente + target in un clic.",
     t11N:"Novità",t11H:"Percorso di rete (LLDP/CDP)",t11P:"Su quale switch e porta sei? Discovery LLDP/CDP (switch, porta, VLAN, modello) + traceroute L3: PC → switch → gateway → core → firewall → internet.",
     t12H:"Suite diagnostica VoIP completa",t12P:"RTP player & DTMF, OPTIONS monitor, DNS NAPTR/SRV, STUN & tipo NAT, firewall check, analizzatore SRTP/DTLS, SIP builder con Digest auth, provisioning viewer, SIP-over-WebSocket, generatore traffico, calcolatori codec/MOS, readiness Teams Direct Routing, report HTML per-tool e combinato, conformità RFC 3261…",
     donH:"Ti piace? Offrimi un caffè",donL:"LosaTermVoip è gratis e resta gratis. Se ti ha salvato un debug notturno, una piccola donazione lo tiene in vita.",
@@ -345,7 +361,7 @@ const I18N = {
     sub:"A free, no-nonsense terminal with a built-in VoIP diagnostic suite: 1-click SIP Health Check, DNS/TLS/SRTP, RTP & MOS, LLDP/CDP, STUN/NAT and much more.",
     dl:"Download (Windows)",man:"User manual",explore:"Explore the tools",dlnote:"Free · Portable .exe · Windows 10/11 · ~2 MB",
     toolsH:"The toolkit",toolsL:"Everything in one window. More tools land as the project grows — tell me what you need.",
-    shotsH:"See it in action",shotsL:"Tool screens with sample data — your traces never leave your PC.",shot1:"TLS certificate check: CN/SAN and expiry.",shot2:"Live anomalies with caller → callee at a glance.",shot3:"Wireshark-like ladder + auto-diagnosis & MOS.",shot4:"One-click health check with a 0-100 score.",shot5:"DNS NAPTR/SRV/A check with interpretation.",shot6:"NAT type: symmetric vs cone (RTP impact).",shot7:"Per-vendor readiness: checks + checklist.",shot8:"0-100 voice score + one-line root cause.",
+    shotsH:"See it in action",shotsL:"Tool screens with sample data — your traces never leave your PC.",shot1:"TLS certificate check: CN/SAN and expiry.",shot2:"Live anomalies with caller → callee at a glance.",shot3:"Wireshark-like ladder + auto-diagnosis & MOS.",shot4:"One-click health check with a 0-100 score.",shot5:"DNS NAPTR/SRV/A check with interpretation.",shot6:"NAT type: symmetric vs cone (RTP impact).",shot7:"Per-vendor readiness: checks + checklist.",shot8:"0-100 voice score + one-line root cause.",shot9:"Pick your checks → one environment+target report.",
     tsbN:"New",tsbH:"SBC Health",tsbP:"Vendor-neutral trunk diagnostics: SIP OPTIONS test, TLS certificate & expiry check, DNS SRV/A lookup. Works on Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE, Asterisk.",
     t1H:"SIP Ladder (PCAP & SDL)",t1P:"Turn PCAPs and Cisco SDL/SDI traces into clean SIP ladder diagrams — grouped per Call-ID like Wireshark, with auto-diagnosis, RTP/MOS voice quality and per-message RFC 3261 conformance checks.",
     t2H:"Syslog Server",t2P:"Built-in UDP syslog collector with a live viewer and SIP-only filter — no extra software.",
@@ -359,6 +375,7 @@ const I18N = {
     t10N:"New",t10H:"1-click SIP Health Check",t10P:"Enter a domain and get a full DNS → TLS/cert → SIP OPTIONS check with a 0-100 score and the exact issues. The fastest way to find why a trunk is down.",
     tenvN:"New",tenvH:"Environment Check (per vendor)",tenvP:"Pick your vendor — Teams Direct Routing, AudioCodes, Ribbon, Cisco CUBE/CUCM, Asterisk, FreeSWITCH, Alcatel, Yeastar, 3CX — and get automated DNS/TLS/OPTIONS checks plus a vendor-specific readiness checklist and debug-command cheat-sheet.",
     tcqN:"New",tcqH:"Call Quality Scorecard",tcqP:"Every captured call gets a 0-100 voice-quality score (MOS, packet loss, jitter) and a one-line root cause — one-way audio, degraded audio, codec mismatch — right in the call diagnosis. The 'wow' that goes straight into a ticket.",
+    tnrN:"New",tnrH:"Network Readiness Report",tnrP:"Tick the checks you need — local IPs & interfaces, system DNS & proxy, public IP + NAT type, target DNS/SIP reachability, TLS certificate, traceroute, vendor checklist — and run them all into one branded HTML report. A full environment + target assessment in one click.",
     t11N:"New",t11H:"Network Path (LLDP/CDP)",t11P:"Which switch and port are you on? LLDP/CDP discovery (switch, port, VLAN, model) plus an L3 traceroute: PC → switch → gateway → core → firewall → internet.",
     t12H:"Full VoIP diagnostic suite",t12P:"RTP player & DTMF, OPTIONS monitor, DNS NAPTR/SRV, STUN & NAT type, firewall check, SRTP/DTLS analyzer, SIP builder with Digest auth, provisioning viewer, SIP-over-WebSocket, traffic generator, codec/MOS calculators, Teams Direct Routing readiness, per-tool &amp; combined HTML reports, RFC 3261 conformance…",
     donH:"Like it? Buy me a coffee",donL:"LosaTermVoip is free and stays free. If it saved you a late-night debug session, a small donation keeps it alive.",
